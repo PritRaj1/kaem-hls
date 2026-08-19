@@ -41,6 +41,8 @@
               h5py
               onnx
               ruff
+              qonnx
+              hls4ml
             ]
           ))
         ];
