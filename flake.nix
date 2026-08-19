@@ -41,15 +41,24 @@
               h5py
               onnx
               ruff
-              qonnx
-              hls4ml
             ]
           ))
         ];
 
         shellHook = ''
-          echo "Entered dev environment"
+          echo "Entered KAEM HLS environment"
           python --version
+
+          if [ ! -d .venv ]; then
+            python -m venv .venv
+            source .venv/bin/activate
+            pip install --upgrade pip
+            pip install "hls4ml[onnx,profiling]" qonnx
+          else
+            source .venv/bin/activate
+          fi
+
+          echo "venv including hls4ml / qonnx is ready"
         '';
       };
 
