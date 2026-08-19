@@ -33,10 +33,21 @@
           ninja
           clang-tools
           cmake-format
+
+          (python3.withPackages (
+            python-pkgs: with python-pkgs; [
+              numpy
+              matplotlib
+              h5py
+              onnx
+              ruff
+            ]
+          ))
         ];
 
         shellHook = ''
           echo "Entered dev environment"
+          python --version
         '';
       };
 
