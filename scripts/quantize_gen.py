@@ -18,9 +18,11 @@ def fill_attributes(model):
         if node.op_type not in ("Conv", "ConvTranspose"):
             continue
 
-        # Kernel_shape
-        if (get_by_name(node.attribute, "kernel_shape") is None) and (
-            len(node.input) >= 2 and node.input[1] in init_map
+        # kernel_shape
+        if (
+            get_by_name(node.attribute, "kernel_shape") is None
+            and len(node.input) >= 2
+            and node.input[1] in init_map
         ):
             w = numpy_helper.to_array(init_map[node.input[1]])
             if w.ndim >= 3:
@@ -28,24 +30,30 @@ def fill_attributes(model):
                 node.attribute.append(helper.make_attribute("kernel_shape", ks))
                 print(f"Added kernel_shape={ks} to {node.name}")
 
-        # Group (default = 1)
+        # group
         if get_by_name(node.attribute, "group") is None:
             node.attribute.append(helper.make_attribute("group", 1))
             print(f"Added group=1 to {node.name}")
 
-        # Strides (default = [1, 1] for 2D)
+        ks_attr = get_by_name(node.attribute, "kernel_shape")
+        rank = len(ks_attr.ints) if ks_attr is not None else 2
+
+        # strides
         if get_by_name(node.attribute, "strides") is None:
-            ks_attr = get_by_name(node.attribute, "kernel_shape")
-            rank = len(ks_attr.ints) if ks_attr is not None else 2
             node.attribute.append(helper.make_attribute("strides", [1] * rank))
             print(f"Added strides={[1] * rank} to {node.name}")
 
-        # Dilations (default = [1, 1])
+        # dilations
         if get_by_name(node.attribute, "dilations") is None:
-            ks_attr = get_by_name(node.attribute, "kernel_shape")
-            rank = len(ks_attr.ints) if ks_attr is not None else 2
             node.attribute.append(helper.make_attribute("dilations", [1] * rank))
             print(f"Added dilations={[1] * rank} to {node.name}")
+
+        # ONNX pads layout: [x0_begin, x1_begin, ..., x0_end, x1_end, ...]
+        if get_by_name(node.attribute, "pads") is None:
+            get_by_name(node.attribute, "auto_pad")
+            pads = [0] * (2 * rank)
+            node.attribute.append(helper.make_attribute("pads", pads))
+            print(f"Added pads={pads} to {node.name}")
 
     return model
 
@@ -80,12 +88,12 @@ def main():
     try:
         model = shape_inference.infer_shapes(model)
         model = clean(model)
-    except exception as e:
+    except Exception as e:  # noqa: BLE001
         print(f"onnx shape_inference warning (continuing): {e}")
 
     onnx.save(model, "data/generator_pre_qonnx.onnx")
     print("saved data/generator_pre_qonnx.onnx")
-    print("applying qonnx transforms...")
+    print("applying qonnx transforms")
     qmodel = ModelWrapper(model)
     qmodel = qmodel.transform(InferShapes())
     qmodel = qmodel.transform(FoldConstants())
