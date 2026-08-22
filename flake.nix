@@ -39,8 +39,11 @@
               numpy
               matplotlib
               h5py
-              onnx
               ruff
+              torch
+              torchvision
+              onnx
+              onnxruntime
             ]
           ))
         ];
@@ -53,12 +56,12 @@
             python -m venv .venv
             source .venv/bin/activate
             pip install --upgrade pip
-            pip install "hls4ml[onnx,profiling]" qonnx
+            pip install brevitas qonnx
           else
             source .venv/bin/activate
           fi
 
-          echo "venv including hls4ml / qonnx is ready"
+          echo "venv including brevitas / qonnx is ready"
         '';
       };
 
