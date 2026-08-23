@@ -44,6 +44,7 @@
               torchvision
               onnx
               onnxruntime
+              pyyaml
             ]
           ))
         ];
