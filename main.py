@@ -1,3 +1,4 @@
-from src import conf_from_dir
+from src import conf_from_dir, quantGEN
 
-print(conf_from_dir("data/kaem_celeb_a"))
+spec = conf_from_dir("data/kaem_celeb_a")
+print(quantGEN(spec))
