@@ -1,0 +1,34 @@
+[project]
+name = "kaem-hls"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "numpy",
+    "matplotlib",
+    "h5py",
+    "ruff",
+    "torch",
+    "torchvision",
+    "onnx",
+    "onnxruntime",
+    "pyyaml",
+    "jax[cuda13]",
+    "flax",
+    "brevitas",
+    "qonnx",
+    "orbax-checkpoint",
+    "hydra-core",
+    "clu",
+    "tensorflow",
+    "tensorflow-datasets",
+    "opencv-python-headless",
+    "optax",
+    "beautifulsoup4",
+    "pillow",
+    "scikit-learn",
+    "torch-fidelity",
+    "tensorboard",
+]
+
+[tool.ruff]
+line-length = 100

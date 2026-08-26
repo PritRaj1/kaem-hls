@@ -10,6 +10,7 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      python = pkgs.python312;
     in
     {
       packages.${system}.default = pkgs.stdenv.mkDerivation {
@@ -27,42 +28,42 @@
       };
 
       devShells.${system}.default = pkgs.mkShell {
-        packages = with pkgs; [
-          gcc
-          cmake
-          ninja
-          clang-tools
-          cmake-format
-
-          (python3.withPackages (
-            python-pkgs: with python-pkgs; [
-              numpy
-              matplotlib
-              h5py
-              ruff
-              torch
-              torchvision
-              onnx
-              onnxruntime
-              pyyaml
-            ]
-          ))
+        packages = [
+          pkgs.gcc
+          pkgs.cmake
+          pkgs.ninja
+          pkgs.clang-tools
+          pkgs.cmake-format
+          python
         ];
 
         shellHook = ''
-          echo "Entered KAEM HLS environment"
-          python --version
+          export LD_LIBRARY_PATH="${
+            pkgs.lib.makeLibraryPath [
+              pkgs.zlib
+              pkgs.zstd
+              pkgs.stdenv.cc.cc.lib
+              pkgs.openssl
+              pkgs.curl
+              pkgs.bzip2
+              pkgs.xz
+              pkgs.libffi
+            ]
+          }''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
           if [ ! -d .venv ]; then
-            python -m venv .venv
-            source .venv/bin/activate
-            pip install --upgrade pip
-            pip install brevitas qonnx
-          else
-            source .venv/bin/activate
+          ${python}/bin/python -m venv .venv
           fi
 
-          echo "venv including brevitas / qonnx is ready"
+          source .venv/bin/activate
+
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+          python -m pip install -e ../thermo-ebms
+
+          echo "KAEM HLS environment ready"
+          echo "Python: $(python --version)"
+          echo "Executable: $(which python)"
         '';
       };
 

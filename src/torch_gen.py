@@ -1,41 +1,30 @@
 from __future__ import annotations
 
-import brevitas.nn as qnn
 import torch
 from torch import nn
 
 
-class QuantGEN(nn.Module):
-    def __init__(
-        self,
-        layers: list[dict],
-        weight_bit_width: int = 8,
-        act_bit_width: int = 8,
-    ):
+class GENFloat(nn.Module):
+    def __init__(self, layers: list[dict]):
         super().__init__()
-
         self.ops = nn.ModuleList()
 
         for layer in layers:
-            t = layer["type"]
+            layer_type = layer["type"]
 
-            if t == "ConvTranspose":
+            if layer_type == "ConvTranspose":
                 self.ops.append(
-                    qnn.QuantConvTranspose2d(
+                    nn.ConvTranspose2d(
                         in_channels=int(layer["in_features"]),
                         out_channels=int(layer["out_features"]),
                         kernel_size=tuple(layer["kernel_size"]),
                         stride=tuple(layer["strides"]),
                         padding=tuple(layer["padding"]),
-                        bias=layer.get(
-                            "has_bias",
-                            True,
-                        ),
-                        weight_bit_width=weight_bit_width,
+                        bias=layer.get("has_bias", True),
                     )
                 )
 
-            elif t == "GroupNorm":
+            elif layer_type == "GroupNorm":
                 self.ops.append(
                     nn.GroupNorm(
                         num_groups=int(layer["num_groups"]),
@@ -45,27 +34,19 @@ class QuantGEN(nn.Module):
                     )
                 )
 
-            elif t == "LeakyReLU":
+            elif layer_type == "LeakyReLU":
                 self.ops.append(nn.LeakyReLU(negative_slope=float(layer["negative_slope"])))
 
-            elif t == "HardTanh":
-                self.ops.append(
-                    nn.Hardtanh(
-                        -1.0,
-                        1.0,
-                    )
-                )
+            elif layer_type == "HardTanh":
+                self.ops.append(nn.Hardtanh(min_val=-1.0, max_val=1.0))
 
-            elif t == "SumLatent":
+            elif layer_type == "SumLatent":
                 self.ops.append(SumLatent())
 
             else:
-                raise ValueError(f"Unsupported layer: {t}")
+                raise ValueError(f"Unsupported layer type: {layer_type}")
 
-    def forward(
-        self,
-        z: torch.Tensor,
-    ) -> torch.Tensor:
+    def forward(self, z: torch.Tensor) -> torch.Tensor:
         for op in self.ops:
             z = op(z)
 
@@ -73,11 +54,5 @@ class QuantGEN(nn.Module):
 
 
 class SumLatent(nn.Module):
-    def forward(
-        self,
-        z: torch.Tensor,
-    ) -> torch.Tensor:
-        return z.sum(
-            dim=-2,
-            keepdim=True,
-        )
+    def forward(self, z: torch.Tensor) -> torch.Tensor:
+        return z.sum(dim=-2, keepdim=True)
