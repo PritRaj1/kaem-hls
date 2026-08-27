@@ -26,10 +26,12 @@ def verify_flax_vs_torch(
 
     with torch.no_grad():
         flax_y = flax_gen(z)
-        torch_y = torch_gen(torch.from_numpy(np.asarray(z, dtype=np.float32)))
+        z_torch = np.transpose(z, (0, 3, 1, 2))
+        torch_y = torch_gen(torch.from_numpy(np.asarray(z_torch, dtype=np.float32)))
 
     flax_y = np.asarray(flax_y, dtype=np.float32)
     torch_y = torch_y.cpu().numpy().astype(np.float32)
+    torch_y = np.transpose(torch_y, (0, 2, 3, 1))
 
     if flax_y.shape != torch_y.shape:
         raise RuntimeError(
@@ -59,24 +61,43 @@ def verify_flax_vs_torch(
 
 def main():
     z_dim = config.model.z_dim
+
     gen, step = restore_generator(
         RUN_DIR,
         config,
         sum_latent=False,
     )
+
     print(f"Using checkpoint step {step}")
 
     export_weights(gen, WEIGHT_DIR)
-    layers = make_gen_spec(config.model.gen, z_dim, sum_latent=False)
+
+    layers = make_gen_spec(
+        config.model.gen,
+        z_dim,
+        sum_latent=False,
+    )
 
     torch_gen = GENFloat(layers)
     load_weights(torch_gen, WEIGHT_DIR)
 
     rng = np.random.default_rng(1234)
-    z = rng.standard_normal(size=(config.training.global_batch_size, 1, 1, z_dim)).astype(
-        np.float32
+
+    # NHWC: (B, H, W, C)
+    z = rng.standard_normal(
+        size=(
+            config.training.global_batch_size,
+            1,
+            1,
+            z_dim,
+        )
+    ).astype(np.float32)
+
+    verify_flax_vs_torch(
+        gen,
+        torch_gen,
+        z,
     )
-    verify_flax_vs_torch(gen, torch_gen, z)
 
 
 if __name__ == "__main__":

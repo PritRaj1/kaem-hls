@@ -4,6 +4,30 @@ import torch
 from torch import nn
 
 
+def pad_map(
+    padding: str | tuple[int, int] | list[int],
+    kernel_size: tuple[int, int],
+    stride: tuple[int, int],
+) -> tuple[int, int]:
+    if isinstance(padding, str):
+        padding = padding.upper()
+
+        if padding == "VALID":
+            return (0, 0)
+
+        if padding == "SAME":
+            return tuple(k // 2 - 1 for k in kernel_size)
+
+        raise ValueError(f"Unsupported Flax padding: {padding}")
+
+    return tuple(padding)
+
+
+class SumLatent(nn.Module):
+    def forward(self, z: torch.Tensor) -> torch.Tensor:
+        return z.sum(dim=-2, keepdim=True)
+
+
 class GENFloat(nn.Module):
     def __init__(self, layers: list[dict]):
         super().__init__()
@@ -13,13 +37,22 @@ class GENFloat(nn.Module):
             layer_type = layer["type"]
 
             if layer_type == "ConvTranspose":
+                kernel_size = tuple(layer["kernel_size"])
+                stride = tuple(layer["strides"])
+
+                padding = pad_map(
+                    layer["padding"],
+                    kernel_size,
+                    stride,
+                )
+
                 self.ops.append(
                     nn.ConvTranspose2d(
                         in_channels=int(layer["in_features"]),
                         out_channels=int(layer["out_features"]),
-                        kernel_size=tuple(layer["kernel_size"]),
-                        stride=tuple(layer["strides"]),
-                        padding=tuple(layer["padding"]),
+                        kernel_size=kernel_size,
+                        stride=stride,
+                        padding=padding,
                         bias=layer.get("has_bias", True),
                     )
                 )
@@ -51,8 +84,3 @@ class GENFloat(nn.Module):
             z = op(z)
 
         return z
-
-
-class SumLatent(nn.Module):
-    def forward(self, z: torch.Tensor) -> torch.Tensor:
-        return z.sum(dim=-2, keepdim=True)

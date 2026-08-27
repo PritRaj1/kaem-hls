@@ -12,7 +12,7 @@ def flax2torch_deconv(kernel: np.ndarray) -> torch.Tensor:
         np.ascontiguousarray(
             np.transpose(
                 kernel,
-                (3, 2, 0, 1),
+                (2, 3, 0, 1),
             ).astype(np.float32)
         )
     )
