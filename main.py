@@ -45,8 +45,8 @@ def verify_flax_vs_torch(
     print("max abs error:", diff.max())
     print("mean abs error:", diff.mean())
 
-    np.save("flax_output.npy", flax_y)
-    np.save("torch_output.npy", torch_y)
+    np.save(RUN_DIR / "flax_output.npy", flax_y)
+    np.save(RUN_DIR / "torch_output.npy", torch_y)
 
     if not np.allclose(
         flax_y,

@@ -8,13 +8,10 @@ from torch import nn
 
 
 def flax2torch_deconv(kernel: np.ndarray) -> torch.Tensor:
+    kernel = np.flip(kernel, axis=(0, 1))
+
     return torch.from_numpy(
-        np.ascontiguousarray(
-            np.transpose(
-                kernel,
-                (2, 3, 0, 1),
-            ).astype(np.float32)
-        )
+        np.ascontiguousarray(np.transpose(kernel, (2, 3, 0, 1)).astype(np.float32))
     )
 
 
