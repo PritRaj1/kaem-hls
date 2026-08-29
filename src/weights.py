@@ -51,6 +51,9 @@ def load_weights(model: nn.Module, weight_dir: Path) -> None:
 
                 op.bias.copy_(torch.from_numpy(np.load(bias_path).astype(np.float32)))
 
+            if hasattr(op, "weight_quant"):
+                op.weight_quant.init_tensor_quant()
+
     if len(gn_ops) > 0:
         for i, op in enumerate(gn_ops):
             scale_path = weight_dir / f"gn_{i}_scale.npy"

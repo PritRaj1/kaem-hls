@@ -9,13 +9,9 @@ from .utils import pad_map
 
 class QuantGEN(nn.Module):
     """
-    Quantization:
-      - ConvTranspose weights: signed INT8, per-output-channel
-      - ConvTranspose outputs: signed INT8, per-tensor
-      - Activations as Brevitas QuantTensors
-      - Bias stays floating point inside the torch ref model
-        and is handled during integer acc/requant when
-        exporting to HLS.
+    - ConvTranspose weights: signed INT8, per-output-channel (Brevitas)
+    - Bias, LeakyReLU, Hardtanh: float in this reference graph
+    - Integer acts / acc / requant not here
     """
 
     def __init__(
@@ -42,7 +38,6 @@ class QuantGEN(nn.Module):
                 kernel_size = tuple(layer["kernel_size"])
                 stride = tuple(layer["strides"])
                 padding = pad_map(layer["padding"], kernel_size, stride)
-
                 self.ops.append(
                     qnn.QuantConvTranspose2d(
                         in_channels=int(layer["in_features"]),
@@ -57,21 +52,7 @@ class QuantGEN(nn.Module):
                         weight_signed=True,
                     )
                 )
-
                 self.op_names.append(f"TConv {layer_idx}")
-                self.ops.append(
-                    qnn.QuantIdentity(
-                        bit_width=act_bit_width,
-                        quant_type="INT",
-                        signed=True,
-                        narrow_range=True,
-                        return_quant_tensor=True,
-                        scaling_impl_type="parameter_from_stats",
-                        scaling_stats_op="MAX",
-                    )
-                )
-
-                self.op_names.append(f"TConv {layer_idx} activation quant")
 
             elif t == "GroupNorm":
                 self.ops.append(
@@ -82,7 +63,6 @@ class QuantGEN(nn.Module):
                         affine=True,
                     )
                 )
-
                 self.op_names.append(f"GroupNorm {layer_idx}")
 
             elif t == "LeakyReLU":
@@ -90,18 +70,7 @@ class QuantGEN(nn.Module):
                 self.op_names.append(f"LeakyReLU {layer_idx}")
 
             elif t == "HardTanh":
-                self.ops.append(
-                    qnn.QuantHardTanh(
-                        min_val=-1.0,
-                        max_val=1.0,
-                        bit_width=act_bit_width,
-                        quant_type="INT",
-                        signed=True,
-                        narrow_range=False,
-                        return_quant_tensor=True,
-                    )
-                )
-
+                self.ops.append(nn.Hardtanh(min_val=-1.0, max_val=1.0))
                 self.op_names.append(f"HardTanh {layer_idx}")
 
             elif t == "SumLatent":

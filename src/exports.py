@@ -55,52 +55,43 @@ def export_quantized_weights(
     output_dir: Path,
 ) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
-
     tconv_idx = 0
-
     print()
     for op in model.modules():
         if not hasattr(op, "quant_weight"):
             continue
 
         qweight = op.quant_weight()
-        qweight_np = qweight.value.detach().cpu().numpy()
+        dequant = qweight.value.detach().cpu()
+        scale = qweight.scale.detach().cpu().float()
+        zp = qweight.zero_point
+        zp_np = zp.detach().cpu().numpy() if zp is not None else np.array(0.0, dtype=np.float32)
 
+        # w ≈ scale * (w_int - zp)
+        w_int = torch.round(dequant / scale + zp_np).to(torch.int32)
+        w_int = torch.clamp(w_int, -128, 127).to(torch.int8)
+
+        np.save(output_dir / f"tconv_{tconv_idx}_w_int.npy", w_int.numpy())
+        np.save(output_dir / f"tconv_{tconv_idx}_scale.npy", scale.numpy().astype(np.float32))
         np.save(
-            output_dir / f"tconv_{tconv_idx}_quant_weight.npy",
-            qweight_np,
+            output_dir / f"tconv_{tconv_idx}_zero_point.npy", np.asarray(zp_np, dtype=np.float32)
         )
+        np.save(
+            output_dir / f"tconv_{tconv_idx}_dequant.npy",
+            dequant.numpy().astype(np.float32),
+        )
+
+        if op.bias is not None:
+            np.save(
+                output_dir / f"tconv_{tconv_idx}_bias.npy",
+                op.bias.detach().cpu().numpy().astype(np.float32),
+            )
 
         print(
-            f"TConv {tconv_idx}: "
-            f"shape={qweight_np.shape}, "
-            f"dtype={qweight_np.dtype}, "
-            f"min={qweight_np.min()}, "
-            f"max={qweight_np.max()}"
+            f"TConv {tconv_idx}: w_int={tuple(w_int.shape)} "
+            f"range=[{int(w_int.min())}, {int(w_int.max())}] "
+            f"scale_shape={tuple(scale.shape)}"
         )
-
-        scale = qweight.scale
-        if scale is not None:
-            scale_np = scale.detach().cpu().numpy().astype(np.float32)
-
-            np.save(
-                output_dir / f"tconv_{tconv_idx}_scale.npy",
-                scale_np,
-            )
-
-            print(f"  scale shape={scale_np.shape}, scale={scale_np}")
-
-        zero_point = qweight.zero_point
-        if zero_point is not None:
-            zero_point_np = zero_point.detach().cpu().numpy()
-
-            np.save(
-                output_dir / f"tconv_{tconv_idx}_zero_point.npy",
-                zero_point_np,
-            )
-
-            print(f"  zero_point={zero_point_np}")
-
         tconv_idx += 1
 
     print()
