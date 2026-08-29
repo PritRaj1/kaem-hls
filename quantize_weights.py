@@ -7,7 +7,14 @@ import numpy as np
 import torch
 from hydra import compose, initialize
 
-from src import GENFloat, QuantGEN, export_quantized_weights, load_weights, make_gen_spec
+from src import (
+    GENFloat,
+    QuantGEN,
+    export_quantized_weights,
+    load_weights,
+    make_gen_spec,
+    unwrap_quant,
+)
 
 RUN_DIR = Path("data/kaem_celeb_a").resolve()
 WEIGHT_DIR = RUN_DIR / "flax_weights"
@@ -35,7 +42,7 @@ def compare_outputs(
     quantized: torch.Tensor,
 ) -> None:
     ref = reference.detach().cpu().numpy().astype(np.float32)
-    quant = quantized.detach().cpu().numpy().astype(np.float32)
+    quant = unwrap_quant(quantized).detach().cpu().numpy().astype(np.float32)
 
     if ref.shape != quant.shape:
         raise RuntimeError(
@@ -117,11 +124,74 @@ def plot_outputs(
 def build_models() -> tuple[GENFloat, QuantGEN]:
     z_dim = config.model.z_dim
     layers = make_gen_spec(config.model.gen, z_dim, sum_latent=False)
-
     float_gen = GENFloat(layers)
     quant_gen = QuantGEN(layers, weight_bit_width=WEIGHT_BIT_WIDTH, act_bit_width=ACT_BIT_WIDTH)
-
     return float_gen, quant_gen
+
+
+def compare_traces(float_gen: GENFloat, quant_gen: QuantGEN, z: torch.Tensor) -> None:
+    print()
+    print("=" * 80)
+    print("LAYER-BY-LAYER CHECK")
+    print("=" * 80)
+
+    float_trace: list[tuple[str, torch.Tensor]] = []
+    x = z.detach().clone()
+    float_trace.append(("input", x))
+    for idx, op in enumerate(float_gen.ops):
+        x = op(x)
+        if hasattr(x, "value"):
+            x = x.value
+
+        x = x.detach().clone()
+        if idx < len(quant_gen.op_names):
+            name = quant_gen.op_names[idx]
+        else:
+            name = f"op {idx}"
+
+        float_trace.append((name, x))
+
+    quant_trace = quant_gen.forward_trace(z)
+    if len(float_trace) != len(quant_trace):
+        print("WARNING: trace length mismatch:")
+        print(f"  float: {len(float_trace)}")
+        print(f"  quant: {len(quant_trace)}")
+
+    count = min(len(float_trace), len(quant_trace))
+    first_large_error = True
+    for i in range(count):
+        float_name, float_x = float_trace[i]
+        _quant_name, quant_x = quant_trace[i]
+
+        print()
+        print(f"[{i}] {float_name}")
+        if float_x.shape != quant_x.shape:
+            print("    SHAPE MISMATCH")
+            print(f"    float: {tuple(float_x.shape)}")
+            print(f"    quant: {tuple(quant_x.shape)}")
+            continue
+
+        diff = torch.abs(float_x - quant_x)
+        max_error = float(diff.max())
+        mean_error = float(diff.mean())
+        float_min = float(float_x.min())
+        float_max = float(float_x.max())
+        quant_min = float(quant_x.min())
+        quant_max = float(quant_x.max())
+
+        print(f"    shape:       {tuple(float_x.shape)}")
+        print(f"    float:       [{float_min:+.6f}, {float_max:+.6f}]")
+        print(f"    quantized:   [{quant_min:+.6f}, {quant_max:+.6f}]")
+        print(f"    max error:   {max_error:.8e}")
+        print(f"    mean error:  {mean_error:.8e}")
+        if max_error > 0.1:
+            print("    <<< LARGE ERROR <<<")
+            if first_large_error:
+                print("    <<< FIRST LARGE ERROR <<<")
+                first_large_error = False
+
+    print()
+    print("=" * 80)
 
 
 def main() -> None:
@@ -150,6 +220,7 @@ def main() -> None:
     print("Running quantized gen...")
     with torch.no_grad():
         quant_y = quant_gen(z)
+        compare_traces(float_gen, quant_gen, z)
 
     compare_outputs(float_y, quant_y)
     print()

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import torch
+
 
 def pad_map(
     padding: str | tuple[int, int] | list[int],
@@ -18,3 +20,13 @@ def pad_map(
         raise ValueError(f"Unsupported Flax padding: {padding}")
 
     return tuple(padding)
+
+
+def unwrap_quant(x: torch.Tensor) -> torch.Tensor:
+    if hasattr(x, "value"):
+        x = x.value
+
+    if not isinstance(x, torch.Tensor):
+        raise TypeError(f"Expected torch.Tensor or Brevitas QuantTensor, got {type(x)}")
+
+    return x

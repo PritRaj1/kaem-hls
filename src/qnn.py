@@ -8,6 +8,16 @@ from .utils import pad_map
 
 
 class QuantGEN(nn.Module):
+    """
+    Quantization:
+      - ConvTranspose weights: signed INT8, per-output-channel
+      - ConvTranspose outputs: signed INT8, per-tensor
+      - Activations as Brevitas QuantTensors
+      - Bias stays floating point inside the torch ref model
+        and is handled during integer acc/requant when
+        exporting to HLS.
+    """
+
     def __init__(
         self,
         layers: list[dict],
@@ -15,20 +25,23 @@ class QuantGEN(nn.Module):
         act_bit_width: int = 8,
     ):
         super().__init__()
+        if weight_bit_width < 2:
+            raise ValueError("weight_bit_width must be >= 2")
 
+        if act_bit_width < 2:
+            raise ValueError("act_bit_width must be >= 2")
+
+        self.weight_bit_width = weight_bit_width
+        self.act_bit_width = act_bit_width
         self.ops = nn.ModuleList()
+        self.op_names: list[str] = []
 
-        for layer in layers:
+        for layer_idx, layer in enumerate(layers):
             t = layer["type"]
-
             if t == "ConvTranspose":
                 kernel_size = tuple(layer["kernel_size"])
                 stride = tuple(layer["strides"])
-                padding = pad_map(
-                    layer["padding"],
-                    kernel_size,
-                    stride,
-                )
+                padding = pad_map(layer["padding"], kernel_size, stride)
 
                 self.ops.append(
                     qnn.QuantConvTranspose2d(
@@ -37,19 +50,28 @@ class QuantGEN(nn.Module):
                         kernel_size=kernel_size,
                         stride=stride,
                         padding=padding,
-                        bias=layer.get(
-                            "has_bias",
-                            True,
-                        ),
+                        bias=layer.get("has_bias", True),
                         weight_bit_width=weight_bit_width,
+                        weight_scaling_per_output_channel=True,
+                        weight_quant_type="INT",
+                        weight_signed=True,
                     )
                 )
 
+                self.op_names.append(f"TConv {layer_idx}")
                 self.ops.append(
                     qnn.QuantIdentity(
                         bit_width=act_bit_width,
+                        quant_type="INT",
+                        signed=True,
+                        narrow_range=True,
+                        return_quant_tensor=True,
+                        scaling_impl_type="parameter_from_stats",
+                        scaling_stats_op="MAX",
                     )
                 )
+
+                self.op_names.append(f"TConv {layer_idx} activation quant")
 
             elif t == "GroupNorm":
                 self.ops.append(
@@ -61,39 +83,105 @@ class QuantGEN(nn.Module):
                     )
                 )
 
+                self.op_names.append(f"GroupNorm {layer_idx}")
+
             elif t == "LeakyReLU":
                 self.ops.append(nn.LeakyReLU(negative_slope=float(layer["negative_slope"])))
+                self.op_names.append(f"LeakyReLU {layer_idx}")
 
             elif t == "HardTanh":
                 self.ops.append(
-                    nn.Hardtanh(
-                        -1.0,
-                        1.0,
+                    qnn.QuantHardTanh(
+                        min_val=-1.0,
+                        max_val=1.0,
+                        bit_width=act_bit_width,
+                        quant_type="INT",
+                        signed=True,
+                        narrow_range=False,
+                        return_quant_tensor=True,
                     )
                 )
 
+                self.op_names.append(f"HardTanh {layer_idx}")
+
             elif t == "SumLatent":
                 self.ops.append(SumLatent())
+                self.op_names.append(f"SumLatent {layer_idx}")
 
             else:
                 raise ValueError(f"Unsupported layer: {t}")
 
-    def forward(
-        self,
-        z: torch.Tensor,
-    ) -> torch.Tensor:
+    def forward(self, z: torch.Tensor) -> torch.Tensor:
         for op in self.ops:
             z = op(z)
 
+        if hasattr(z, "value"):
+            z = z.value
+
         return z
+
+    def forward_trace(self, z: torch.Tensor) -> list[tuple[str, torch.Tensor]]:
+        trace: list[tuple[str, torch.Tensor]] = []
+        trace.append(("input", z.detach().clone()))
+
+        for name, op in zip(self.op_names, self.ops):
+            z = op(z)
+            if hasattr(z, "value"):
+                z_value = z.value
+            else:
+                z_value = z
+
+            z_value = z_value.detach().clone()
+            trace.append((name, z_value))
+
+        return trace
+
+    def print_quant(self) -> None:
+        print()
+        print("=" * 80)
+        print("QUANTIZATION PARAMETERS")
+        print("=" * 80)
+
+        for idx, op in enumerate(self.ops):
+            if isinstance(op, qnn.QuantConvTranspose2d):
+                print()
+                print(f"{self.op_names[idx]}:")
+                weight = op.weight
+                print(f"  weight type:       {type(weight).__name__}")
+
+                if hasattr(weight, "value"):
+                    integer_weight = weight.value
+                    print(
+                        "  integer weight:    "
+                        f"shape={tuple(integer_weight.shape)} "
+                        f"dtype={integer_weight.dtype}"
+                    )
+
+                    print(
+                        "  integer range:     "
+                        f"[{int(integer_weight.min())}, "
+                        f"{int(integer_weight.max())}]"
+                    )
+
+                if hasattr(weight, "scale"):
+                    scale = weight.scale
+                    print(f"  weight scale:      shape={tuple(scale.shape)}")
+                    scale_np = scale.detach().cpu().numpy()
+                    print(f"  scale min/max:     [{scale_np.min():.8e}, {scale_np.max():.8e}]")
+
+                print(f"  weight bit width:  {self.weight_bit_width}")
+
+            elif isinstance(op, qnn.QuantIdentity):
+                print()
+                print(f"{self.op_names[idx]}:")
+                print(f"  activation bits:   {self.act_bit_width}")
+                print("  signed:            True")
+                print("  narrow range:      True")
+
+        print()
+        print("=" * 80)
 
 
 class SumLatent(nn.Module):
-    def forward(
-        self,
-        z: torch.Tensor,
-    ) -> torch.Tensor:
-        return z.sum(
-            dim=-2,
-            keepdim=True,
-        )
+    def forward(self, z: torch.Tensor) -> torch.Tensor:
+        return z.sum(dim=-2, keepdim=True)
