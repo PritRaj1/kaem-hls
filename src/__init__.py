@@ -1,4 +1,4 @@
-from .nnx_export import export_weights
+from .exports import export_quantized_weights, export_weights
 from .nnx_restore import restore_generator
 from .parse_conf import make_gen_spec
 from .qnn import QuantGEN
@@ -8,6 +8,7 @@ from .weights import load_weights
 __all__ = [
     "GENFloat",
     "QuantGEN",
+    "export_quantized_weights",
     "export_weights",
     "load_weights",
     "make_gen_spec",

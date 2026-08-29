@@ -8,7 +8,7 @@ import numpy as np
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--lut", type=Path, default="data/inv_cdf_lut.npy")
+    parser.add_argument("--lut", type=Path, default="data/kaem_celeb_a/inv_cdf_lut.npy")
     parser.add_argument("--out", type=Path, default="src/lut_rom.h")
     parser.add_argument("--width", type=int, default=16, help="ap_fixed total bits")
     parser.add_argument("--int-bits", type=int, default=6, help="ap_fixed integer bits")

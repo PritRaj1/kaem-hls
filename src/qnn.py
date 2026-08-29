@@ -4,6 +4,8 @@ import brevitas.nn as qnn
 import torch
 from torch import nn
 
+from .utils import pad_map
+
 
 class QuantGEN(nn.Module):
     def __init__(
@@ -20,18 +22,32 @@ class QuantGEN(nn.Module):
             t = layer["type"]
 
             if t == "ConvTranspose":
+                kernel_size = tuple(layer["kernel_size"])
+                stride = tuple(layer["strides"])
+                padding = pad_map(
+                    layer["padding"],
+                    kernel_size,
+                    stride,
+                )
+
                 self.ops.append(
                     qnn.QuantConvTranspose2d(
                         in_channels=int(layer["in_features"]),
                         out_channels=int(layer["out_features"]),
-                        kernel_size=tuple(layer["kernel_size"]),
-                        stride=tuple(layer["strides"]),
-                        padding=tuple(layer["padding"]),
+                        kernel_size=kernel_size,
+                        stride=stride,
+                        padding=padding,
                         bias=layer.get(
                             "has_bias",
                             True,
                         ),
                         weight_bit_width=weight_bit_width,
+                    )
+                )
+
+                self.ops.append(
+                    qnn.QuantIdentity(
+                        bit_width=act_bit_width,
                     )
                 )
 
