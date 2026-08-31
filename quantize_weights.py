@@ -169,7 +169,7 @@ def build_models() -> tuple[GENFloat, QuantGEN]:
     z_dim = config.model.z_dim
     layers = make_gen_spec(config.model.gen, z_dim, sum_latent=False)
     float_gen = GENFloat(layers)
-    quant_gen = QuantGEN(layers, weight_bit_width=WEIGHT_BIT_WIDTH, act_bit_width=ACT_BIT_WIDTH)
+    quant_gen = QuantGEN(layers, weight_bit_width=WEIGHT_BIT_WIDTH)
     return float_gen, quant_gen
 
 
@@ -240,7 +240,6 @@ def compare_traces(float_gen: GENFloat, quant_gen: QuantGEN, z: torch.Tensor) ->
 def main() -> None:
     float_gen, quant_gen = build_models()
     print(f"Weight bit width:     {WEIGHT_BIT_WIDTH}")
-    print(f"Activation bit width: {ACT_BIT_WIDTH}")
     print()
     print("Loading float weights...")
     load_weights(float_gen, WEIGHT_DIR)

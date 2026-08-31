@@ -18,17 +18,12 @@ class QuantGEN(nn.Module):
         self,
         layers: list[dict],
         weight_bit_width: int = 8,
-        act_bit_width: int = 8,
     ):
         super().__init__()
         if weight_bit_width < 2:
             raise ValueError("weight_bit_width must be >= 2")
 
-        if act_bit_width < 2:
-            raise ValueError("act_bit_width must be >= 2")
-
         self.weight_bit_width = weight_bit_width
-        self.act_bit_width = act_bit_width
         self.ops = nn.ModuleList()
         self.op_names: list[str] = []
 
@@ -143,7 +138,6 @@ class QuantGEN(nn.Module):
             elif isinstance(op, qnn.QuantIdentity):
                 print()
                 print(f"{self.op_names[idx]}:")
-                print(f"  activation bits:   {self.act_bit_width}")
                 print("  signed:            True")
                 print("  narrow range:      True")
 
