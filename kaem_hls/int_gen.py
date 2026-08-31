@@ -195,7 +195,11 @@ class IntGEN:
 
             elif layer.kind == "HardTanh":
                 x = torch.clamp(x, -1.0, 1.0)
+                out_scale = 1.0 / 127.0
+                x_int = quantize_tensor(x, out_scale, 127)
+                x = x_int * out_scale
                 trace.append((layer.name, x.detach().cpu().float()))
+                trace.append((layer.name + " int", x_int.detach().cpu().float()))
 
             elif layer.kind == "SumLatent":
                 x = x.sum(dim=-2, keepdim=True)
