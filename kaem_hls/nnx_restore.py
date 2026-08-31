@@ -16,6 +16,7 @@ def restore_generator(
     *,
     sum_latent: bool = False,
 ):
+    """Restore thermo-ebms decoder from orbax checkpoint."""
     run_dir = Path(run_dir).resolve()
 
     manager = ocp.CheckpointManager(

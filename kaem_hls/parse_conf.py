@@ -7,6 +7,7 @@ def make_gen_spec(
     *,
     sum_latent: bool = False,
 ) -> list[dict]:
+    """Create generator specification from copy of thermo-ebms config.yaml file."""
     layers = []
 
     if sum_latent:

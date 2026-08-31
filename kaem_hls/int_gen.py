@@ -37,6 +37,7 @@ def _as_scale_nchw(scale: np.ndarray, out_channels: int) -> torch.Tensor:
 
 
 def load_int_layers(layers: list[dict], quant_dir: Path) -> list[IntLayer]:
+    """Load 8-bit weights and INT16 acts."""
     quant_dir = Path(quant_dir)
     out: list[IntLayer] = []
     tconv_i = 0

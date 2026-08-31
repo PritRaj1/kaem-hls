@@ -8,6 +8,7 @@ from flax import nnx
 
 
 def export_weights(gen: nnx.Module, out_dir: Path) -> None:
+    """Save flax weights to numpy."""
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     tconv_i = 0
@@ -54,6 +55,7 @@ def export_quantized_weights(
     model: torch.nn.Module,
     output_dir: Path,
 ) -> None:
+    """Save 8-bit weights to numpy."""
     output_dir.mkdir(parents=True, exist_ok=True)
     tconv_idx = 0
     print()
@@ -100,6 +102,7 @@ def export_quantized_weights(
 
 
 def export_test_pair(gen: nnx.Module, out_dir: Path, z: np.ndarray) -> None:
+    """Generate input/output pair for numpy"""
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     z_jax = np.asarray(z)

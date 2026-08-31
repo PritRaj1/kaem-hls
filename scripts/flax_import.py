@@ -5,16 +5,12 @@ from pathlib import Path
 import numpy as np
 import torch
 from flax import nnx
-from hydra import compose, initialize
+from utils import config
 
-from src import *
+from kaem_hls import GENFloat, export_weights, load_weights, make_gen_spec, restore_generator
 
 RUN_DIR = Path("data/kaem_celeb_a").resolve()
 WEIGHT_DIR = RUN_DIR / "flax_weights"
-
-
-with initialize(config_path="data/kaem_celeb_a"):
-    config = compose(config_name="config_copy")
 
 
 def verify_flax_vs_torch(
@@ -45,8 +41,8 @@ def verify_flax_vs_torch(
     print("max abs error:", diff.max())
     print("mean abs error:", diff.mean())
 
-    np.save(RUN_DIR / "flax_output.npy", flax_y)
-    np.save(RUN_DIR / "torch_output.npy", torch_y)
+    np.save("../" / RUN_DIR / "flax_output.npy", flax_y)
+    np.save("../" / RUN_DIR / "torch_output.npy", torch_y)
 
     if not np.allclose(
         flax_y,

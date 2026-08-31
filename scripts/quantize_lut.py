@@ -30,8 +30,8 @@ def main():
         default="data/kaem_celeb_a/mixture_alpha.npy",
         help="Mixture logits with shape (Q, P)",
     )
-    parser.add_argument("--out", type=Path, default="src/lut_rom.h")
-    parser.add_argument("--alpha-out", type=Path, default="src/mixture_alpha.h")
+    parser.add_argument("--out", type=Path, default="kaem_hls/lut_rom.h")
+    parser.add_argument("--alpha-out", type=Path, default="kaem_hls/mixture_alpha.h")
     parser.add_argument(
         "--width", type=int, default=16, help="ap_fixed total bits for inverse-CDF LUT"
     )

@@ -32,3 +32,11 @@ dependencies = [
 
 [tool.ruff]
 line-length = 100
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]
+
+[tool.setuptools.packages.find]
+include = ["kaem_hls"]

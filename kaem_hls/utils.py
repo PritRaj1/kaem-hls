@@ -8,6 +8,7 @@ def pad_map(
     kernel_size: tuple[int, int],
     stride: tuple[int, int],
 ) -> tuple[int, int]:
+    """Convert flax padding strings to torch tuples."""
     if isinstance(padding, str):
         padding = padding.upper()
 

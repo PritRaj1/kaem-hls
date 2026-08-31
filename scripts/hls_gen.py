@@ -2,13 +2,12 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import numpy as np
 import torch
-from hydra import compose, initialize
-
 from quantize_weights import make_input
-from src import GENFloat, IntGEN, load_int_layers, load_weights, make_gen_spec
+from utils import config, plot_sample
+
+from kaem_hls import GENFloat, IntGEN, load_int_layers, load_weights, make_gen_spec
 
 RUN_DIR = Path("data/kaem_celeb_a").resolve()
 WEIGHT_DIR = RUN_DIR / "flax_weights"
@@ -22,10 +21,6 @@ Z_SCALE = 2.0 ** -(LUT_WIDTH - LUT_INT_BITS)  # ap_fixed<16,6> -> 1/1024
 ACT_BITS = 16
 ACT_MAX = (1 << (ACT_BITS - 1)) - 1  # 32767
 ACC_DTYPE = torch.float64
-
-
-with initialize(config_path="data/kaem_celeb_a"):
-    config = compose(config_name="config_copy")
 
 
 def compare_to_float(
@@ -43,10 +38,12 @@ def compare_to_float(
     for name, ft in float_trace:
         if name not in name_to_int:
             continue
+
         it = name_to_int[name]
         if ft.shape != it.shape:
             print(f"{name}: SHAPE {tuple(ft.shape)} vs {tuple(it.shape)}")
             continue
+
         diff = (ft.float() - it.float()).abs()
         print(
             f"{name:18s}  max={float(diff.max()):.6e}  mean={float(diff.mean()):.6e}  "
@@ -61,29 +58,6 @@ def compare_to_float(
     print(f"float range:          [{float(float_y.min()):+.6f}, {float(float_y.max()):+.6f}]")
     print(f"int   range:          [{float(int_y.min()):+.6f}, {float(int_y.max()):+.6f}]")
     print("=" * 80)
-
-
-def plot_outputs(reference: np.ndarray, quantized: np.ndarray, path: Path) -> None:
-    ref_img = np.clip((reference[0].transpose(1, 2, 0) + 1.0) / 2.0, 0.0, 1.0)
-    int_img = np.clip((quantized[0].transpose(1, 2, 0) + 1.0) / 2.0, 0.0, 1.0)
-    err = np.abs(reference[0] - quantized[0]).mean(axis=0)
-
-    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-    axes[0].imshow(ref_img)
-    axes[0].set_title("Float")
-    axes[0].axis("off")
-    axes[1].imshow(int_img)
-    axes[1].set_title("Integer")
-    axes[1].axis("off")
-    im = axes[2].imshow(err, cmap="hot", vmin=0.0, vmax=max(float(err.max()), 1e-8))
-    axes[2].set_title("Abs error")
-    axes[2].axis("off")
-    fig.colorbar(im, ax=axes[2], fraction=0.046, pad=0.04)
-    fig.suptitle("W8 weights / INT16 acts / float Hardtanh")
-    fig.tight_layout()
-    fig.savefig(path, dpi=200, bbox_inches="tight")
-    plt.close(fig)
-    print(f"Saved plot: {path}")
 
 
 def main() -> None:
@@ -131,14 +105,15 @@ def main() -> None:
         float_y = x
 
     compare_to_float(float_y, int_y, float_trace, int_trace)
-    plot_outputs(
+    plot_sample(
         float_y.detach().cpu().numpy(),
         int_y.detach().cpu().numpy(),
+        ["Float / Ref", "Integer", "W8 weights / INT16 acts / float Hardtanh"],
         RUN_DIR / "integer_comparison.png",
     )
 
     np.save(
-        RUN_DIR / "torch_integer_output.npy",
+        "../" / RUN_DIR / "torch_integer_output.npy",
         int_y.detach().cpu().numpy().astype(np.float32),
     )
     print(f"Saved {RUN_DIR / 'torch_integer_output.npy'}")

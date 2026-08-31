@@ -12,6 +12,8 @@ class SumLatent(nn.Module):
 
 
 class GENFloat(nn.Module):
+    """Exact torch replica of flax generator."""
+
     def __init__(self, layers: list[dict]):
         super().__init__()
         self.ops = nn.ModuleList()
