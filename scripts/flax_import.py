@@ -44,12 +44,7 @@ def verify_flax_vs_torch(
     np.save("../" / RUN_DIR / "flax_output.npy", flax_y)
     np.save("../" / RUN_DIR / "torch_output.npy", torch_y)
 
-    if not np.allclose(
-        flax_y,
-        torch_y,
-        rtol=1e-4,
-        atol=1e-4,
-    ):
+    if not np.allclose(flax_y, torch_y, rtol=1e-4, atol=1e-4):
         raise RuntimeError("Flax and PyTorch outputs do not match")
 
     print("PASS: Flax == PyTorch")
@@ -57,22 +52,12 @@ def verify_flax_vs_torch(
 
 def main():
     z_dim = config.model.z_dim
-
-    gen, step = restore_generator(
-        RUN_DIR,
-        config,
-        sum_latent=False,
-    )
+    gen, step = restore_generator(RUN_DIR, config, sum_latent=False)
 
     print(f"Using checkpoint step {step}")
 
     export_weights(gen, WEIGHT_DIR)
-
-    layers = make_gen_spec(
-        config.model.gen,
-        z_dim,
-        sum_latent=False,
-    )
+    layers = make_gen_spec(config.model.gen, z_dim, sum_latent=False)
 
     torch_gen = GENFloat(layers)
     load_weights(torch_gen, WEIGHT_DIR)
@@ -80,20 +65,10 @@ def main():
     rng = np.random.default_rng(1234)
 
     # NHWC: (B, H, W, C)
-    z = rng.standard_normal(
-        size=(
-            config.training.global_batch_size,
-            1,
-            1,
-            z_dim,
-        )
-    ).astype(np.float32)
-
-    verify_flax_vs_torch(
-        gen,
-        torch_gen,
-        z,
+    z = rng.standard_normal(size=(config.training.global_batch_size, 1, 1, z_dim)).astype(
+        np.float32
     )
+    verify_flax_vs_torch(gen, torch_gen, z)
 
 
 if __name__ == "__main__":

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import brevitas.nn as qnn
 import numpy as np
 import torch
 from flax import nnx
@@ -51,54 +52,55 @@ def export_weights(gen: nnx.Module, out_dir: Path) -> None:
     print(f"Exported {gn_i} GroupNorm layers")
 
 
-def export_quantized_weights(
+def export_quantized(
     model: torch.nn.Module,
     output_dir: Path,
 ) -> None:
-    """Save 8-bit weights to numpy."""
+    """Export quantized model parameters."""
     output_dir.mkdir(parents=True, exist_ok=True)
+
     tconv_idx = 0
-    print()
+    activations = []
+
+    export = {
+        "tconv": [],
+        "activations": activations,
+    }
+
     for op in model.modules():
-        if not hasattr(op, "quant_weight"):
-            continue
+        if isinstance(op, qnn.QuantConvTranspose2d):
+            qweight = op.quant_weight()
+            w = qweight.value.detach().cpu()
+            s = qweight.scale.detach().cpu().float()
+            zp = (
+                qweight.zero_point.detach().cpu()
+                if qweight.zero_point is not None
+                else torch.tensor(0.0)
+            )
+            w_int = torch.round(w / s + zp).clamp(-128, 127).to(torch.int8)
 
-        qweight = op.quant_weight()
-        dequant = qweight.value.detach().cpu()
-        scale = qweight.scale.detach().cpu().float()
-        zp = qweight.zero_point
-        zp_np = zp.detach().cpu().numpy() if zp is not None else np.array(0.0, dtype=np.float32)
-
-        # w ≈ scale * (w_int - zp)
-        w_int = torch.round(dequant / scale + zp_np).to(torch.int32)
-        w_int = torch.clamp(w_int, -128, 127).to(torch.int8)
-
-        np.save(output_dir / f"tconv_{tconv_idx}_w_int.npy", w_int.numpy())
-        np.save(output_dir / f"tconv_{tconv_idx}_scale.npy", scale.numpy().astype(np.float32))
-        np.save(
-            output_dir / f"tconv_{tconv_idx}_zero_point.npy", np.asarray(zp_np, dtype=np.float32)
-        )
-        np.save(
-            output_dir / f"tconv_{tconv_idx}_dequant.npy",
-            dequant.numpy().astype(np.float32),
-        )
-
-        if op.bias is not None:
-            np.save(
-                output_dir / f"tconv_{tconv_idx}_bias.npy",
-                op.bias.detach().cpu().numpy().astype(np.float32),
+            export["tconv"].append(
+                {
+                    "w_int": w_int,
+                    "weight_scale": s,
+                    "weight_zero_point": zp,
+                    "bias": op.bias.detach().cpu() if op.bias is not None else None,
+                }
             )
 
-        print(
-            f"TConv {tconv_idx}: w_int={tuple(w_int.shape)} "
-            f"range=[{int(w_int.min())}, {int(w_int.max())}] "
-            f"scale_shape={tuple(scale.shape)}"
-        )
-        tconv_idx += 1
+            print(
+                f"TConv {tconv_idx}: "
+                f"weight={tuple(qweight.value.shape)} "
+                f"scale={tuple(qweight.scale.shape)}"
+            )
+
+            tconv_idx += 1
+
+    torch.save(export, output_dir / "quantized_model.pt")
 
     print()
     print(f"Exported {tconv_idx} quantized ConvTranspose layers")
-    print(f"Output directory: {output_dir}")
+    print(f"Saved: {output_dir / 'quantized_model.pt'}")
 
 
 def export_test_pair(gen: nnx.Module, out_dir: Path, z: np.ndarray) -> None:

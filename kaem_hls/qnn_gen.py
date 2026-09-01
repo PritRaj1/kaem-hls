@@ -4,26 +4,22 @@ import brevitas.nn as qnn
 import torch
 from torch import nn
 
-from .utils import pad_map
+from .utils import QuantLeakyReLU, pad_map, unwrap_quant
 
 
 class QuantGEN(nn.Module):
     """
     - ConvTranspose weights: signed INT8, per-output-channel (Brevitas)
-    - Bias, LeakyReLU, Hardtanh: float in this reference graph
-    - Integer acts / acc / requant not here
+    - Bias, LeakyReLU, Hardtanh: 8-bit
+
+    weight bitwidth: 8, act bitwidth: 16
     """
 
     def __init__(
         self,
         layers: list[dict],
-        weight_bit_width: int = 8,
     ):
         super().__init__()
-        if weight_bit_width < 2:
-            raise ValueError("weight_bit_width must be >= 2")
-
-        self.weight_bit_width = weight_bit_width
         self.ops = nn.ModuleList()
         self.op_names: list[str] = []
 
@@ -41,7 +37,7 @@ class QuantGEN(nn.Module):
                         stride=stride,
                         padding=padding,
                         bias=layer.get("has_bias", True),
-                        weight_bit_width=weight_bit_width,
+                        weight_bit_width=8,
                         weight_scaling_per_output_channel=True,
                         weight_quant_type="INT",
                         weight_signed=True,
@@ -50,22 +46,27 @@ class QuantGEN(nn.Module):
                 self.op_names.append(f"TConv {layer_idx}")
 
             elif t == "GroupNorm":
-                self.ops.append(
-                    nn.GroupNorm(
-                        num_groups=int(layer["num_groups"]),
-                        num_channels=int(layer["num_features"]),
-                        eps=1e-5,
-                        affine=True,
-                    )
-                )
-                self.op_names.append(f"GroupNorm {layer_idx}")
+                raise RuntimeError("Don't use GroupNorm")
 
             elif t == "LeakyReLU":
-                self.ops.append(nn.LeakyReLU(negative_slope=float(layer["negative_slope"])))
+                self.ops.append(
+                    QuantLeakyReLU(
+                        negative_slope=float(layer["negative_slope"]),
+                        bit_width=16,
+                        return_quant_tensor=True,
+                    )
+                )
                 self.op_names.append(f"LeakyReLU {layer_idx}")
 
             elif t == "HardTanh":
-                self.ops.append(nn.Hardtanh(min_val=-1.0, max_val=1.0))
+                self.ops.append(
+                    qnn.QuantHardTanh(
+                        min_val=-1.0,
+                        max_val=1.0,
+                        bit_width=16,
+                        return_quant_tensor=True,
+                    )
+                )
                 self.op_names.append(f"HardTanh {layer_idx}")
 
             elif t == "SumLatent":
@@ -79,10 +80,7 @@ class QuantGEN(nn.Module):
         for op in self.ops:
             z = op(z)
 
-        if hasattr(z, "value"):
-            z = z.value
-
-        return z
+        return unwrap_quant(z)
 
     def forward_trace(self, z: torch.Tensor) -> list[tuple[str, torch.Tensor]]:
         trace: list[tuple[str, torch.Tensor]] = []
@@ -90,21 +88,16 @@ class QuantGEN(nn.Module):
 
         for name, op in zip(self.op_names, self.ops):
             z = op(z)
-            if hasattr(z, "value"):
-                z_value = z.value
-            else:
-                z_value = z
-
-            z_value = z_value.detach().clone()
+            z_value = unwrap_quant(z).detach().clone()
             trace.append((name, z_value))
 
         return trace
 
     def print_quant(self) -> None:
         print()
-        print("=" * 80)
-        print("QUANTIZATION PARAMETERS")
-        print("=" * 80)
+        print("=" * 120)
+        print("QUANT PARAMS")
+        print("=" * 120)
 
         for idx, op in enumerate(self.ops):
             if isinstance(op, qnn.QuantConvTranspose2d):
@@ -133,7 +126,8 @@ class QuantGEN(nn.Module):
                     scale_np = scale.detach().cpu().numpy()
                     print(f"  scale min/max:     [{scale_np.min():.8e}, {scale_np.max():.8e}]")
 
-                print(f"  weight bit width:  {self.weight_bit_width}")
+                print("  weight bit width:      8")
+                print("  activation bit width: 16")
 
             elif isinstance(op, qnn.QuantIdentity):
                 print()
@@ -142,7 +136,7 @@ class QuantGEN(nn.Module):
                 print("  narrow range:      True")
 
         print()
-        print("=" * 80)
+        print("=" * 120)
 
 
 class SumLatent(nn.Module):

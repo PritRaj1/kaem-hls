@@ -12,7 +12,7 @@ class SumLatent(nn.Module):
 
 
 class GENFloat(nn.Module):
-    """Exact torch replica of flax generator."""
+    """Exact torch replica of flax generator for verification."""
 
     def __init__(self, layers: list[dict]):
         super().__init__()

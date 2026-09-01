@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import brevitas.nn as qnn
 import torch
+from torch import nn
 
 
 def pad_map(
@@ -31,3 +33,27 @@ def unwrap_quant(x: torch.Tensor) -> torch.Tensor:
         raise TypeError(f"Expected torch.Tensor or Brevitas QuantTensor, got {type(x)}")
 
     return x
+
+
+class QuantLeakyReLU(nn.Module):
+    def __init__(
+        self,
+        negative_slope: float = 0.01,
+        *,
+        bit_width: int = 16,
+        return_quant_tensor: bool = True,
+    ):
+        super().__init__()
+
+        self.negative_slope = negative_slope
+        self.act_quant = qnn.QuantIdentity(
+            bit_width=bit_width,
+            return_quant_tensor=return_quant_tensor,
+        )
+
+    def forward(self, x: torch.Tensor):
+        x = torch.nn.functional.leaky_relu(
+            x,
+            negative_slope=self.negative_slope,
+        )
+        return self.act_quant(x)

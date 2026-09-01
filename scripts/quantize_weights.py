@@ -4,12 +4,13 @@ from pathlib import Path
 
 import numpy as np
 import torch
+from brevitas.graph.calibrate import calibration_mode
 from utils import config, plot_sample
 
 from kaem_hls import (
     GENFloat,
     QuantGEN,
-    export_quantized_weights,
+    export_quantized,
     load_weights,
     make_gen_spec,
     unwrap_quant,
@@ -25,55 +26,24 @@ WEIGHT_BIT_WIDTH = 8
 SEED = 1234
 
 
-def make_input() -> torch.Tensor:
+def get_calibration_batch(batch_size=32):
     lut = np.load(LUT_PATH).astype(np.float32)
     alpha = np.load(ALPHA_PATH).astype(np.float32)
-
-    if lut.ndim != 3:
-        raise RuntimeError(f"Expected LUT shape (Q, P, L), got {lut.shape}")
-
-    if alpha.ndim != 2:
-        raise RuntimeError(f"Expected mixture alpha shape (Q, P), got {alpha.shape}")
-
     Q, P, L = lut.shape
-    if alpha.shape != (Q, P):
-        raise RuntimeError(f"Alpha/LUT shape mismatch: alpha={alpha.shape}, expected {(Q, P)}")
 
-    z_dim = int(config.model.z_dim)
-    if P != z_dim:
-        raise RuntimeError(f"LUT latent dimension P={P} does not match model z_dim={z_dim}")
+    alpha_prob = np.exp(alpha - np.max(alpha, axis=0))
+    alpha_prob /= np.sum(alpha_prob, axis=0)
 
-    N = int(config.training.global_batch_size)
-    if not np.all(np.isfinite(lut)):
-        raise RuntimeError("Inverse-CDF LUT contains NaN or Inf")
+    rng = np.random.default_rng(42)
+    z_batch = []
+    for _ in range(batch_size):
+        q_idx = [rng.choice(Q, p=alpha_prob[:, i]) for i in range(P)]
+        u_idx = rng.integers(0, L, size=P)
+        z_sample = lut[q_idx, np.arange(P), u_idx]
+        z_batch.append(z_sample)
 
-    if not np.all(np.isfinite(alpha)):
-        raise RuntimeError("Mixture alpha contains NaN or Inf")
-
-    alpha_shifted = alpha - np.max(alpha, axis=0, keepdims=True)
-    probs = np.exp(alpha_shifted)
-    probs /= np.sum(probs, axis=0, keepdims=True)
-    rng = np.random.default_rng(SEED)
-    q_samples = np.empty((N, P), dtype=np.int64)
-    for p in range(P):
-        q_samples[:, p] = rng.choice(Q, size=N, p=probs[:, p])
-
-    u = rng.random((N, P))
-    lut_indices = np.minimum((u * L).astype(np.int64), L - 1)
-
-    z = lut[q_samples, np.arange(P)[None, :], lut_indices]
-    if not np.all(np.isfinite(z)):
-        raise RuntimeError("Generated latent samples contain NaN or Inf")
-
-    z = z.astype(np.float32)
-    print()
-    print("Latent sampling:")
-    print(f"  LUT shape:        {lut.shape}")
-    print(f"  alpha shape:      {alpha.shape}")
-    print(f"  samples:          {N}")
-    print(f"  latent dimension: {P}")
-    print(f"  latent range:     [{z.min():+.6f}, {z.max():+.6f}]")
-    return torch.from_numpy(z.reshape(N, P, 1, 1))
+    z = np.array(z_batch).reshape(batch_size, P, 1, 1)
+    return torch.from_numpy(z).float()
 
 
 def compare_outputs(
@@ -121,7 +91,7 @@ def build_models() -> tuple[GENFloat, QuantGEN]:
     z_dim = config.model.z_dim
     layers = make_gen_spec(config.model.gen, z_dim, sum_latent=False)
     float_gen = GENFloat(layers)
-    quant_gen = QuantGEN(layers, weight_bit_width=WEIGHT_BIT_WIDTH)
+    quant_gen = QuantGEN(layers)
     return float_gen, quant_gen
 
 
@@ -193,16 +163,21 @@ def main() -> None:
     float_gen, quant_gen = build_models()
     print(f"Weight bit width:     {WEIGHT_BIT_WIDTH}")
     print()
-    print("Loading float weights...")
+    print("Loading weights...")
     load_weights(float_gen, WEIGHT_DIR)
     load_weights(quant_gen, WEIGHT_DIR)
     float_gen.eval()
 
     print()
     print("Generating input...")
-    z = make_input()
+    z = get_calibration_batch()
     print(f"Input shape: {tuple(z.shape)}")
     quant_gen.eval()
+
+    with torch.no_grad(), calibration_mode(quant_gen):
+        for _ in range(20):
+            batch = get_calibration_batch(32)
+            quant_gen(batch)
 
     print()
     print("Running float gen...")
@@ -217,7 +192,7 @@ def main() -> None:
     compare_outputs(float_y, quant_y)
     print()
     print("Exporting quantized weights...")
-    export_quantized_weights(quant_gen, QUANT_WEIGHT_DIR)
+    export_quantized(quant_gen, QUANT_WEIGHT_DIR)
 
     print()
     print("DONE")

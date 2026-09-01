@@ -11,11 +11,7 @@ def make_gen_spec(
     layers = []
 
     if sum_latent:
-        layers.append(
-            {
-                "type": "SumLatent",
-            }
-        )
+        layers.append({"type": "SumLatent"})
 
     def add_deconv(cin, block):
         layers.append(
@@ -23,14 +19,8 @@ def make_gen_spec(
                 "type": "ConvTranspose",
                 "in_features": int(cin),
                 "out_features": int(block.channels),
-                "kernel_size": (
-                    int(block.kernel_size),
-                    int(block.kernel_size),
-                ),
-                "strides": (
-                    int(block.stride),
-                    int(block.stride),
-                ),
+                "kernel_size": (int(block.kernel_size), int(block.kernel_size)),
+                "strides": (int(block.stride), int(block.stride)),
                 "padding": block.padding,
                 "has_bias": True,
             }
@@ -38,21 +28,10 @@ def make_gen_spec(
 
     def add_norm(c):
         if config.groupnorm:
-            layers.append(
-                {
-                    "type": "GroupNorm",
-                    "num_features": int(c),
-                    "num_groups": 32,
-                }
-            )
+            layers.append({"type": "GroupNorm", "num_features": int(c), "num_groups": 32})
 
     def add_act():
-        layers.append(
-            {
-                "type": "LeakyReLU",
-                "negative_slope": float(config.leakyrelu_leak),
-            }
-        )
+        layers.append({"type": "LeakyReLU", "negative_slope": float(config.leakyrelu_leak)})
 
     first = config.blocks[0]
 
@@ -75,23 +54,13 @@ def make_gen_spec(
             "type": "ConvTranspose",
             "in_features": int(last.channels),
             "out_features": int(config.img_channels),
-            "kernel_size": (
-                int(last.kernel_size),
-                int(last.kernel_size),
-            ),
-            "strides": (
-                int(last.stride),
-                int(last.stride),
-            ),
+            "kernel_size": (int(last.kernel_size), int(last.kernel_size)),
+            "strides": (int(last.stride), int(last.stride)),
             "padding": last.padding,
             "has_bias": True,
         }
     )
 
-    layers.append(
-        {
-            "type": "HardTanh",
-        }
-    )
+    layers.append({"type": "HardTanh"})
 
     return layers
