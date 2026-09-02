@@ -4,13 +4,13 @@ from pathlib import Path
 
 import numpy as np
 import torch
+from brevitas.export import export_qonnx
 from brevitas.graph.calibrate import calibration_mode
 from utils import config, plot_sample
 
 from kaem_hls import (
     GENFloat,
     QuantGEN,
-    export_quantized,
     load_weights,
     make_gen_spec,
     unwrap_quant,
@@ -191,8 +191,18 @@ def main() -> None:
 
     compare_outputs(float_y, quant_y)
     print()
-    print("Exporting quantized weights...")
-    export_quantized(quant_gen, QUANT_WEIGHT_DIR)
+
+    print("Exporting to qonnx...")
+    z = get_calibration_batch(1)
+
+    export_qonnx(
+        quant_gen.eval().cpu(),
+        input_t=z,
+        export_path="data/kaem_celeb_a/quant_gen.onnx",
+        opset_version=18,
+    )
+
+    print("wrote quant_gen.onnx")
 
     print()
     print("DONE")
