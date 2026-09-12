@@ -110,6 +110,23 @@ wheels = [
 ]
 
 [[package]]
+name = "blackjax"
+version = "1.6.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "jax" },
+    { name = "jaxlib" },
+    { name = "numpy" },
+    { name = "optax" },
+    { name = "scipy" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/12/bc/423d304810d0defb54906d220468730895207c9c908cc0ea67d925b463b5/blackjax-1.6.2.tar.gz", hash = "sha256:ad3c97ff6c77cfa17310a68de665d1a48f9d47ff1ac39725082ab235517406ee", size = 5302867, upload-time = "2026-07-16T13:10:25.422Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/39/13/fc2be5e0c9a68c18eb0ea8ece9a0f3b078a513fd8a695f00d506de08db97/blackjax-1.6.2-py3-none-any.whl", hash = "sha256:2989786202cdfc9b0a84f8215c24f2c7985b40ae432136282c3776d979d1236e", size = 4915114, upload-time = "2026-07-16T13:10:23.466Z" },
+]
+
+[[package]]
 name = "brevitas"
 version = "0.13.2"
 source = { registry = "https://pypi.org/simple" }
@@ -1912,6 +1929,7 @@ name = "thermo-ebms"
 version = "0.1.0"
 source = { editable = "../thermo-ebms" }
 dependencies = [
+    { name = "blackjax" },
     { name = "flax" },
     { name = "grain" },
     { name = "importlib-resources" },
@@ -1922,6 +1940,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "beautifulsoup4", marker = "extra == 'train'", specifier = ">=4.15.0" },
+    { name = "blackjax", specifier = ">=1.6.2" },
     { name = "clu", marker = "extra == 'train'", specifier = ">=0.0.12" },
     { name = "flax", specifier = ">=0.12.7" },
     { name = "grain", specifier = ">=0.2.17" },

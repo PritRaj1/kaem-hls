@@ -4,7 +4,7 @@ import brevitas.nn as qnn
 import torch
 from torch import nn
 
-from .utils import QuantLeakyReLU, pad_map, unwrap_quant
+from .utils import pad_map, unwrap_quant
 
 
 class QuantGEN(nn.Module):
@@ -48,22 +48,21 @@ class QuantGEN(nn.Module):
             elif t == "GroupNorm":
                 raise RuntimeError("Don't use GroupNorm")
 
-            elif t == "LeakyReLU":
+            elif t == "HardSwish":
                 self.ops.append(
-                    QuantLeakyReLU(
-                        negative_slope=float(layer["negative_slope"]),
-                        bit_width=16,
+                    qnn.QuantHardSwish(
+                        bit_width=8,
                         return_quant_tensor=True,
                     )
                 )
-                self.op_names.append(f"LeakyReLU {layer_idx}")
+                self.op_names.append(f"HardSwish {layer_idx}")
 
             elif t == "HardTanh":
                 self.ops.append(
                     qnn.QuantHardTanh(
                         min_val=-1.0,
                         max_val=1.0,
-                        bit_width=16,
+                        bit_width=8,
                         return_quant_tensor=True,
                     )
                 )

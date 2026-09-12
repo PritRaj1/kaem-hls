@@ -32,7 +32,7 @@ def plot_sample(reference: np.ndarray, quantized: np.ndarray, title: str, path: 
     axes[2].axis("off")
 
     fig.colorbar(im, ax=axes[2], fraction=0.046, pad=0.04)
-    fig.suptitle("W8 weights / INT16 acts / float Hardtanh")
+    fig.suptitle("8-bit weights / 8-bit acts / 8-bit Hardtanh")
     fig.tight_layout()
     fig.savefig(path, dpi=200, bbox_inches="tight")
     plt.close(fig)

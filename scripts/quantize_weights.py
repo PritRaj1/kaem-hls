@@ -13,6 +13,7 @@ from kaem_hls import (
     QuantGEN,
     load_weights,
     make_gen_spec,
+    stamp_tconv_attrs,
     unwrap_quant,
 )
 
@@ -21,8 +22,6 @@ WEIGHT_DIR = RUN_DIR / "flax_weights"
 QUANT_WEIGHT_DIR = RUN_DIR / "quant_weights"
 LUT_PATH = RUN_DIR / "inv_cdf_lut.npy"
 ALPHA_PATH = RUN_DIR / "mixture_alpha.npy"
-
-WEIGHT_BIT_WIDTH = 8
 SEED = 1234
 
 
@@ -82,7 +81,7 @@ def compare_outputs(
     plot_sample(
         ref,
         quant,
-        ["Float / Ref", "Quantized", f"{WEIGHT_BIT_WIDTH}-bit weights / Float acts"],
+        ["Float / Ref", "Quantized", "8-bit weights / 8-bit acts"],
         RUN_DIR,
     )
 
@@ -161,7 +160,6 @@ def compare_traces(float_gen: GENFloat, quant_gen: QuantGEN, z: torch.Tensor) ->
 
 def main() -> None:
     float_gen, quant_gen = build_models()
-    print(f"Weight bit width:     {WEIGHT_BIT_WIDTH}")
     print()
     print("Loading weights...")
     load_weights(float_gen, WEIGHT_DIR)
@@ -201,6 +199,8 @@ def main() -> None:
         export_path="data/kaem_celeb_a/quant_gen.onnx",
         opset_version=18,
     )
+    layers = make_gen_spec(config.model.gen, config.model.z_dim, sum_latent=False)
+    stamp_tconv_attrs(str(RUN_DIR / "quant_gen.onnx"), layers)
 
     print("wrote quant_gen.onnx")
 
