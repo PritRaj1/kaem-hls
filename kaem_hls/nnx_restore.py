@@ -39,14 +39,16 @@ def restore_generator(
 
     key = jax.random.key(config.model.seed)
     rng = nnx.Rngs(key)
+
+    config.model.gen.mixed_precision = False
     model = model_cls(config.model, rng)
 
-    _train_loader, updates_per_epoch = get_loaders(
+    _train_loader, num_examples, batch_size = get_loaders(
         config.training,
         config.model.seed,
     )
 
-    tx = coupled_opt(config.optim, updates_per_epoch)
+    tx = coupled_opt(config.optim, num_examples // batch_size * config.training.epochs)
     st = nnx.ModelAndOptimizer(model, tx, wrt=nnx.Param)
     if st.model.ebm.mixture:
         key = st.model.ebm.sample_mixture(key, config.training.global_batch_size)
@@ -59,6 +61,7 @@ def restore_generator(
 
     nnx.update(st, restored["train_state"])
     gen = st.model.gen
+
     print("Restored Flax generator:")
     nnx.display(gen)
     return gen, step

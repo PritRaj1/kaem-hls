@@ -51,8 +51,8 @@ class GENFloat(nn.Module):
                     )
                 )
 
-            elif layer_type == "LeakyReLU":
-                self.ops.append(nn.LeakyReLU(negative_slope=float(layer["negative_slope"])))
+            elif layer_type == "HardSwish":
+                self.ops.append(nn.Hardswish())
 
             elif layer_type == "HardTanh":
                 self.ops.append(nn.Hardtanh(min_val=-1.0, max_val=1.0))

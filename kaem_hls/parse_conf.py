@@ -31,7 +31,7 @@ def make_gen_spec(
             layers.append({"type": "GroupNorm", "num_features": int(c), "num_groups": 32})
 
     def add_act():
-        layers.append({"type": "LeakyReLU", "negative_slope": float(config.leakyrelu_leak)})
+        layers.append({"type": "HardSwish"})
 
     first = config.blocks[0]
 
