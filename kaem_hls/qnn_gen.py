@@ -20,6 +20,7 @@ class QuantGEN(nn.Module):
         layers: list[dict],
     ):
         super().__init__()
+        self.inp = qnn.QuantIdentity(bit_width=8, return_quant_tensor=True)
         self.ops = nn.ModuleList()
         self.op_names: list[str] = []
 
@@ -76,6 +77,7 @@ class QuantGEN(nn.Module):
                 raise ValueError(f"Unsupported layer: {t}")
 
     def forward(self, z: torch.Tensor) -> torch.Tensor:
+        z = self.inp(z)
         for op in self.ops:
             z = op(z)
 
