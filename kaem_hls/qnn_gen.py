@@ -49,9 +49,9 @@ class QuantGEN(nn.Module):
             elif t == "GroupNorm":
                 raise RuntimeError("Don't use GroupNorm")
 
-            elif t == "HardSwish":
+            elif t == "ReLU":
                 self.ops.append(
-                    qnn.QuantHardSwish(
+                    qnn.QuantReLU(
                         bit_width=8,
                         return_quant_tensor=True,
                     )
