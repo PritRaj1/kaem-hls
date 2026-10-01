@@ -1,10 +1,10 @@
 from .exports import export_weights
+from .load import load_weights
 from .nnx_restore import restore_generator
 from .parse_conf import make_gen_spec
 from .qnn_gen import QuantGEN
 from .torch_gen import GENFloat
 from .utils import stamp_tconv_attrs, unwrap_quant
-from .weights import load_weights
 
 __all__ = [
     "GENFloat",

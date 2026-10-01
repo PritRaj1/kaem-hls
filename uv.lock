@@ -300,34 +300,34 @@ wheels = [
 
 [package.optional-dependencies]
 cudart = [
-    { name = "nvidia-cuda-runtime" },
+    { name = "nvidia-cuda-runtime", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
 ]
 cufft = [
-    { name = "nvidia-cufft" },
+    { name = "nvidia-cufft", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
 ]
 cufile = [
-    { name = "nvidia-cufile" },
+    { name = "nvidia-cufile", marker = "sys_platform == 'linux'" },
 ]
 cupti = [
-    { name = "nvidia-cuda-cupti" },
+    { name = "nvidia-cuda-cupti", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
 ]
 curand = [
-    { name = "nvidia-curand" },
+    { name = "nvidia-curand", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
 ]
 cusolver = [
-    { name = "nvidia-cusolver" },
+    { name = "nvidia-cusolver", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
 ]
 cusparse = [
-    { name = "nvidia-cusparse" },
+    { name = "nvidia-cusparse", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
 ]
 nvjitlink = [
-    { name = "nvidia-nvjitlink" },
+    { name = "nvidia-nvjitlink", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
 ]
 nvrtc = [
-    { name = "nvidia-cuda-nvrtc" },
+    { name = "nvidia-cuda-nvrtc", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
 ]
 nvtx = [
-    { name = "nvidia-nvtx" },
+    { name = "nvidia-nvtx", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
 ]
 
 [[package]]
@@ -1935,6 +1935,7 @@ dependencies = [
     { name = "importlib-resources" },
     { name = "jax", extra = ["cuda13"] },
     { name = "numpy" },
+    { name = "tqdm" },
 ]
 
 [package.metadata]
@@ -1967,6 +1968,7 @@ requires-dist = [
     { name = "tensorflow", marker = "extra == 'train'", specifier = ">=2.21.0" },
     { name = "tensorflow-datasets", marker = "extra == 'train'", specifier = ">=4.9.10" },
     { name = "torch-fidelity", marker = "extra == 'eval'", specifier = ">=0.4.0" },
+    { name = "tqdm", specifier = ">=4.70.0" },
     { name = "typer", marker = "extra == 'experiment'", specifier = ">=0.26.7" },
 ]
 provides-extras = ["train", "eval", "dev", "experiment", "modal"]

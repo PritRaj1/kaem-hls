@@ -10,7 +10,7 @@ from .utils import pad_map, unwrap_quant
 class QuantGEN(nn.Module):
     """
     - ConvTranspose weights: signed INT8, per-output-channel (Brevitas)
-    - Bias, LeakyReLU, Hardtanh: 8-bit
+    - Bias, ReLU, Hardtanh: 8-bit
 
     weight bitwidth: 8, act bitwidth: 16
     """
