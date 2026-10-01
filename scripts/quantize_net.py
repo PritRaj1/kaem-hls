@@ -193,6 +193,13 @@ def main() -> None:
     print("Exporting to qonnx...")
     z = get_calibration_batch(1)
 
+    with torch.no_grad():
+        y = unwrap_quant(quant_gen(z)).detach().cpu().numpy().astype(np.float32)
+
+    np.save(RUN_DIR / "ref_z.npy", z.detach().cpu().numpy().astype(np.float32))
+    np.save(RUN_DIR / "ref_y.npy", y)
+    print("saved reference", tuple(y.shape))
+
     export_qonnx(
         quant_gen.eval().cpu(),
         input_t=z,

@@ -1,5 +1,6 @@
 #!/bin/sh
 set -eu
 cd /workspace/kaem-hls
-python3 finn/finn_prep.py
-python3 finn/finn_hw.py
+python3 finn/prep.py
+python3 finn/make_dataflow.py
+python3 finn/verify.py
