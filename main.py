@@ -7,9 +7,10 @@ ROOT = Path(__file__).resolve().parent
 SCRIPTS = ROOT / "scripts"
 FINN = Path(os.environ.get("FINN_ROOT", Path.home() / "Work" / "finn"))
 XILINX = os.environ.get("FINN_XILINX_PATH", "/opt/Xilinx")
-XILINX_VERSION = os.environ.get("FINN_XILINX_VERSION", "2026.1")
-XILINX_REAL = os.environ.get("KAEM_XILINX_REAL", "/opt/2026.1")
+XILINX_VERSION = os.environ.get("FINN_XILINX_VERSION", "2025.1")
+XILINX_REAL = os.environ.get("KAEM_XILINX_REAL", "/opt/Xilinx/2025.1")
 XILINX_USER = Path(os.environ.get("KAEM_XILINX_USER", Path.home() / ".Xilinx"))
+XILINX_LICENSE = os.environ.get("XILINXD_LICENSE_FILE", str(XILINX_USER / "Xilinx.lic"))
 WORKSPACE = os.environ.get("KAEM_WORKSPACE", "/workspace/kaem-hls")
 
 
@@ -32,7 +33,12 @@ def finn() -> None:
             "FINN_DOCKER_EXTRA": (
                 f"-v {XILINX_REAL}:{XILINX_REAL} "
                 f"-v {ROOT}:{WORKSPACE} "
-                f"-v {XILINX_USER}:{XILINX_USER}"
+                f"-v {XILINX_USER}:{XILINX_USER} "
+                f"-e XILINXD_LICENSE_FILE={XILINX_LICENSE} "
+                f"-e XILINX_VIVADO={XILINX_REAL}/Vivado "
+                f"-e VIVADO_PATH={XILINX_REAL}/Vivado "
+                f"-e HLS_PATH={XILINX_REAL}/Vitis "
+                f"-e VITIS_PATH={XILINX_REAL}/Vitis"
             ),
         }
     )

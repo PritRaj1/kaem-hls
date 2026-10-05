@@ -13,8 +13,8 @@ To run:
 # Override defaults (point to FINN)
 export FINN_ROOT=$HOME/src/finn
 export FINN_XILINX_PATH=/opt/Xilinx
-export FINN_XILINX_VERSION=2026.2
-export KAEM_XILINX_REAL=/tools/Xilinx/2026.2
+export FINN_XILINX_VERSION=2025.1
+export KAEM_XILINX_REAL=/tools/Xilinx/2025.1
 export KAEM_XILINX_USER=$HOME/.Xilinx
 
 # Run all
