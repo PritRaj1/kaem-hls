@@ -12,7 +12,7 @@ class QuantGEN(nn.Module):
     - ConvTranspose weights: signed INT8, per-output-channel (Brevitas)
     - Bias, ReLU, Hardtanh: 8-bit
 
-    weight bitwidth: 8, act bitwidth: 16
+    weight bitwidth: 8, act bitwidth: 8
     """
 
     def __init__(
