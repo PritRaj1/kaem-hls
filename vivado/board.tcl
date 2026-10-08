@@ -14,5 +14,9 @@ set stitch_xpr [lindex $xprs 0]
 set proj [file join $here kaem_board]
 create_project kaem_board $proj -part $part -force
 
-puts "Open this and extend its BD:"
+puts "FINN accelerator here:"
 puts "  $stitch_xpr"
+puts "Board project created:"
+puts "  [file join $proj kaem_board.xpr]"
+puts "Next import the FINN accelerator into board project in vivado."
+

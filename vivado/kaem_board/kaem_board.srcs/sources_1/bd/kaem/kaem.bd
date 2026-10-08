@@ -1,0 +1,26 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x0",
+      "device": "xc7k325tffg676-2",
+      "gen_directory": "../../../../kaem_board.gen/sources_1/bd/kaem",
+      "name": "kaem",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2025.1"
+    },
+    "design_tree": {
+      "kaem_gen_0": ""
+    },
+    "components": {
+      "kaem_gen_0": {
+        "vlnv": "xilinx_finn:finn:kaem_gen:1.0",
+        "ip_revision": "2",
+        "xci_name": "kaem_kaem_gen_0_0",
+        "xci_path": "ip/kaem_kaem_gen_0_0/kaem_kaem_gen_0_0.xci",
+        "inst_hier_path": "kaem_gen_0",
+        "has_run_ip_tcl": "true"
+      }
+    }
+  }
+}
