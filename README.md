@@ -40,4 +40,7 @@ In vivado:
 2. `IP Integrator -> Create Block Design`, design name: kaem
 3. Add IP `+`, search, place, configure each on canvas: `kaem_gen_v1_0`, `Clocking Wizard` (set `clk_in1` to 50 MHz board; `clk_out1` to 100 MHz system), `Processor System Reset`, `AXI4-Stream Data FIFO` (set TDATA width to 4 bytes)
 4. Complete the design in the GUI with wiring and external ports. `Tools -> Validate Design` should pass:
+   
+   ![Wired up design](https://github.com/user-attachments/assets/35468d13-1c09-424c-8675-540c489a8481)
+
 5. Under `Design Sources` rclick kaem.bd and create HDL wrapper.
