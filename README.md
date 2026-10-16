@@ -7,40 +7,61 @@ The flow follows:
 - Fast 16-bit Look-up Table (LUT) prior sampling (fitted after training in [thermo-ebms](https://github.com/PritRaj1/thermo-ebms/))
 - Quantized neural network (QNN) acceleration using Brevitas/FINN for deconvolution generator/decoder
 
-## Full design flow
+## Requirements
 
-To run:
+- [FINN](https://github.com/Xilinx/finn) (Docker flow)
+- Xilinx Vivado / Vitis (version matching your install)
+- Python env for this repo (`uv` / project deps)
+- Trained KAEM run from thermo-ebms (Orbax checkpoint + config)
+
+Optional env overrides (defaults are fine if paths match your machine):
 
 ```bash
-# Override defaults (point to FINN)
-export FINN_ROOT=$HOME/src/finn
+export FINN_ROOT=$HOME/Work/finn
 export FINN_XILINX_PATH=/opt/Xilinx
 export FINN_XILINX_VERSION=2025.1
 export KAEM_XILINX_REAL=/tools/Xilinx/2025.1
 export KAEM_XILINX_USER=$HOME/.Xilinx
-
-# Place orbax checkpoint dir: thermo-ebms/runs/kaem_celeba into this repo
-mkdir data && cp -r ${PATH_TO_THERMO_EBMS}/runs/kaem_celeb_a kaem-hls/data/
-
-# Run to create FPGA dataflow accelerator for CNN
-uv run python main.py
-
-# Copy from finn docker container to disk (place in data/)
-mkdir -p data/kaem_celeb_a/stitch_proj
-cp -a /tmp/finn_dev_${DOCKER_USRNAME}/vivado_stitch_proj_*/* data/kaem_celeb_a/stitch_proj
-
-# Import the accelerator into vivado project
-vivado -mode batch -source vivado/board.tcl
-vivado vivado/kaem_board/kaem_board.xpr
 ```
 
-In vivado:
+## Setup from thermo-ebms
 
-1. `Tools -> Settings -> IP -> Repository` add `data/kaem_celeb_a/stitch_proj/ip`
-2. `IP Integrator -> Create Block Design`, design name: kaem
-3. Add IP `+`, search, place, configure each on canvas: `kaem_gen_v1_0`, `Clocking Wizard` (set `clk_in1` to 50 MHz board; `clk_out1` to 100 MHz system), `Processor System Reset`, `AXI4-Stream Data FIFO` (set TDATA width to 4 bytes)
-4. Complete the design in the GUI with wiring and external ports. `Tools -> Validate Design` should pass:
-   
-   ![Wired up design](https://github.com/user-attachments/assets/35468d13-1c09-424c-8675-540c489a8481)
+```bash
+uv sync
+mkdir -p data
+cp -r /$PATH_TO/thermo-ebms/runs/kaem_celeb_a data/ # Edit
+```
 
-5. Under `Design Sources` rclick kaem.bd and create HDL wrapper.
+## Create files for HLS
+
+```bash
+uv run python main.py
+
+# Optional local copy from FINN docker container
+mkdir -p data/kaem_celeb_a/stitch_proj
+cp -a /tmp/finn_dev_$USER/vivado_stitch_proj_*/. data/kaem_celeb_a/stitch_proj/
+```
+
+## Vivado
+
+```bash
+vivado /tmp/finn_dev_$USER/vivado_stitch_proj_*/finn_vivado_stitch_proj.xpr
+```
+
+1. Add `board.xdc` constraints file for desired FPGA, e.g:
+
+```tcl
+# board.xdc — XC7K325T (xc7k325tffg676-2)
+set_property PACKAGE_PIN G22 [get_ports ap_clk]
+set_property IOSTANDARD LVCMOS33 [get_ports ap_clk]
+create_clock -period 10.000 -name ap_clk -waveform {0.000 5.000} [get_ports ap_clk]
+
+set_property PACKAGE_PIN D26 [get_ports ap_rst_n]
+set_property IOSTANDARD LVCMOS33 [get_ports ap_rst_n]
+set_property CONFIG_VOLTAGE 3.3 [current_design]
+set_property CFGBVS VCCO [current_design]
+```
+
+1. `Run Synthesis`
+2. `Run Implementation`
+3. `Generate bitstream`
