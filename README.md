@@ -51,7 +51,7 @@ vivado /tmp/finn_dev_$USER/vivado_stitch_proj_*/finn_vivado_stitch_proj.xpr
 1. Add `board.xdc` constraints file for desired FPGA, e.g:
 
 ```tcl
-# board.xdc — XC7K325T (xc7k325tffg676-2)
+# board.xdc - XC7K325T (xc7k325tffg676-2)
 set_property PACKAGE_PIN G22 [get_ports ap_clk]
 set_property IOSTANDARD LVCMOS33 [get_ports ap_clk]
 create_clock -period 10.000 -name ap_clk -waveform {0.000 5.000} [get_ports ap_clk]
@@ -62,6 +62,6 @@ set_property CONFIG_VOLTAGE 3.3 [current_design]
 set_property CFGBVS VCCO [current_design]
 ```
 
-1. `Run Synthesis`
-2. `Run Implementation`
-3. `Generate bitstream`
+2. `Run Synthesis`
+3. `Run Implementation`
+4. `Generate bitstream`
