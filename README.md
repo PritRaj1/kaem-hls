@@ -36,10 +36,6 @@ cp -r /$PATH_TO/thermo-ebms/runs/kaem_celeb_a data/ # Edit
 
 ```bash
 uv run python main.py
-
-# Optional local copy from FINN docker container
-mkdir -p data/kaem_celeb_a/stitch_proj
-cp -a /tmp/finn_dev_$USER/vivado_stitch_proj_*/. data/kaem_celeb_a/stitch_proj/
 ```
 
 ## Vivado
@@ -48,20 +44,7 @@ cp -a /tmp/finn_dev_$USER/vivado_stitch_proj_*/. data/kaem_celeb_a/stitch_proj/
 vivado /tmp/finn_dev_$USER/vivado_stitch_proj_*/finn_vivado_stitch_proj.xpr
 ```
 
-1. Add `board.xdc` constraints file for desired FPGA, e.g:
-
-```tcl
-# board.xdc - XC7K325T (xc7k325tffg676-2)
-set_property PACKAGE_PIN G22 [get_ports ap_clk]
-set_property IOSTANDARD LVCMOS33 [get_ports ap_clk]
-create_clock -period 10.000 -name ap_clk -waveform {0.000 5.000} [get_ports ap_clk]
-
-set_property PACKAGE_PIN D26 [get_ports ap_rst_n]
-set_property IOSTANDARD LVCMOS33 [get_ports ap_rst_n]
-set_property CONFIG_VOLTAGE 3.3 [current_design]
-set_property CFGBVS VCCO [current_design]
-```
-
+1. Add constraints for [desired FPGA](https://www.amd.com/en/developer/resources/adaptive-socs-and-fpgas/package-pinout-files/kintex-7-package-device-pinout-files.html), using `Add Sources`. An example has been provided for my versal (xc7k325tffg676-2) [here](./vivado/board.xdc).
 2. `Run Synthesis`
 3. `Run Implementation`
 4. `Generate bitstream`
