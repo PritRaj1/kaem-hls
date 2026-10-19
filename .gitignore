@@ -1,6 +1,10 @@
 # Data cp'd from thermo-ebms repo
 data/
 
+# Codegen
+build/
+**/lut_assets/
+
 # Prerequisites
 *.d
 
