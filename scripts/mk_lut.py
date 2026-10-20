@@ -7,16 +7,8 @@ from pathlib import Path
 
 import numpy as np
 
-
-def quantize(x: np.ndarray, width: int, int_bits: int) -> tuple[np.ndarray, int]:
-    if width <= 0 or int_bits <= 0 or int_bits > width:
-        raise SystemExit(f"invalid format ap_fixed<{width},{int_bits}>")
-
-    scale = 1 << (width - int_bits)
-    lo = -(1 << (width - 1))
-    hi = (1 << (width - 1)) - 1
-    q = np.clip(np.round(x * float(scale)), lo, hi).astype(np.int32)
-    return q, int(scale)
+DEFAULT_LUT = Path("data/kaem_celeb_a/inv_cdf_lut.npy")
+DEFAULT_SCALE = Path("data/kaem_celeb_a/input_scale.npy")
 
 
 def sha256_file(path: Path) -> str:
@@ -28,11 +20,22 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def write_mem(path: Path, values: np.ndarray) -> None:
-    """Write signed integers as 4-digit hex (two's complement, 16-bit)."""
+def write_mem_i8(path: Path, values: np.ndarray) -> None:
+    """Write signed int8 as 2-digit hex (two's complement)"""
     with path.open("w", newline="\n") as f:
         for v in values.reshape(-1):
-            f.write(f"{int(v) & 0xFFFF:04X}\n")
+            f.write(f"{int(v) & 0xFF:02X}\n")
+
+
+def resolve_scale(args: argparse.Namespace) -> float:
+    if args.scale is not None:
+        return float(args.scale)
+    if args.scale_file.is_file():
+        return float(np.asarray(np.load(args.scale_file)).reshape(-1)[0])
+    raise SystemExit(
+        "Need QuantIdentity scale after calibration.\n"
+        f"  Pass --scale FLOAT, or write {args.scale_file} from quantize_net."
+    )
 
 
 def main() -> None:
@@ -40,11 +43,10 @@ def main() -> None:
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-
     ap.add_argument(
         "--lut",
         type=Path,
-        default=Path("data/kaem_celeb_a/inv_cdf_lut.npy"),
+        default=DEFAULT_LUT,
         help="inv_cdf_lut.npy (Q, P, L)",
     )
     ap.add_argument(
@@ -53,11 +55,19 @@ def main() -> None:
         default=Path("build/lut_assets"),
         help="Output directory",
     )
-    ap.add_argument("--width", type=int, default=16, help="Total bits (default 16)")
-    ap.add_argument("--int-bits", type=int, default=6, help="Integer bits (default 6)")
+    ap.add_argument(
+        "--scale",
+        type=float,
+        default=None,
+        help="Brevitas QuantIdentity scale (z_int8 = round(z_float / scale))",
+    )
+    ap.add_argument(
+        "--scale-file",
+        type=Path,
+        default=DEFAULT_SCALE,
+        help="npy scalar from calibrated quant_gen.inp",
+    )
     ap.add_argument("--alpha", type=Path, default=None, help="Optional mixture logits .npy (Q, P)")
-    ap.add_argument("--alpha-width", type=int, default=16)
-    ap.add_argument("--alpha-int-bits", type=int, default=2)
     args = ap.parse_args()
 
     if not args.lut.is_file():
@@ -66,18 +76,21 @@ def main() -> None:
     lut = np.load(args.lut).astype(np.float32, copy=False)
     if lut.ndim != 3:
         raise SystemExit(f"expected shape (Q, P, L), got {lut.shape}")
-
     if not np.all(np.isfinite(lut)):
         raise SystemExit("LUT contains NaN or Inf")
 
+    scale = resolve_scale(args)
+    if not np.isfinite(scale) or scale <= 0:
+        raise SystemExit(f"bad input_scale={scale}")
+
     Q, P, L = (int(x) for x in lut.shape)
-    lut_q, scale = quantize(lut, args.width, args.int_bits)
-    flat = np.ascontiguousarray(lut_q.reshape(-1))
+    flat = np.clip(np.round(lut / scale), -128, 127).astype(np.int8)
+    flat = np.ascontiguousarray(flat.reshape(-1))
 
     out = args.out_dir
     out.mkdir(parents=True, exist_ok=True)
 
-    # Codegen for lut_sizes.h containing Q, P, LUT_SIZE, scale constants
+    # Codegen for lut_sizes.h containing Q, P, LUT_SIZE (+ axis metadata)
     (out / "lut_sizes.h").write_text(
         "\n".join(
             [
@@ -87,31 +100,29 @@ def main() -> None:
                 f"constexpr int P = {P};",
                 f"constexpr int LUT_SIZE = {L};",
                 f"constexpr int LUT_DEPTH = {Q * P * L};",
-                f"constexpr int LUT_WIDTH = {args.width};",
-                f"constexpr int LUT_INT_BITS = {args.int_bits};",
-                f"constexpr int LUT_SCALE = {scale};",
+                "constexpr int LUT_WIDTH = 8;",
+                "constexpr int AXIS_TDATA_BYTES = 4;",
                 "",
             ]
         ),
         encoding="utf-8",
     )
 
-    # BRAM init: one 16-bit hex word per line
-    write_mem(out / "lut.mem", flat)
-    flat.astype("<i2", copy=False).tofile(out / "lut_i16.bin")
+    # BRAM init: one 8-bit hex byte per line
+    write_mem_i8(out / "lut.mem", flat)
+    flat.tofile(out / "lut_i8.bin")
 
     # Metadata json: shape, scales, sha256 of inputs/outputs
     manifest: dict = {
         "source": str(args.lut.resolve()),
         "source_sha256": sha256_file(args.lut),
         "shape": [Q, P, L],
-        "width": args.width,
-        "int_bits": args.int_bits,
-        "scale": scale,
+        "input_scale": scale,
+        "dtype": "int8",
         "layout": "addr=((q*P)+p)*LUT_SIZE+i",
-        "endian": "little",
+        "axis_tdata_bytes": 4,
         "lut_mem_sha256": sha256_file(out / "lut.mem"),
-        "lut_bin_sha256": sha256_file(out / "lut_i16.bin"),
+        "lut_bin_sha256": sha256_file(out / "lut_i8.bin"),
     }
 
     # Optional --alpha: mixture logits (Q, P) -> mixture_cdf.mem for on-chip categorical sampling.
@@ -119,11 +130,9 @@ def main() -> None:
     if args.alpha is not None:
         if not args.alpha.is_file():
             raise SystemExit(f"alpha not found: {args.alpha}")
-
         alpha = np.load(args.alpha).astype(np.float32, copy=False)
         if alpha.shape != (Q, P):
             raise SystemExit(f"alpha shape {alpha.shape} != {(Q, P)}")
-
         if not np.all(np.isfinite(alpha)):
             raise SystemExit("alpha contains NaN or Inf")
 
@@ -132,39 +141,23 @@ def main() -> None:
         prob /= np.sum(prob, axis=0, keepdims=True)
         cdf = np.cumsum(prob, axis=0)
         cdf[-1, :] = 1.0
-
-        cdf_q, a_scale = quantize(cdf, args.alpha_width, args.alpha_int_bits)
+        cdf_q15 = np.clip(np.round(cdf * 32768.0), 0, 32768).astype(np.uint16)
 
         # p-major address generation: addr = p * Q + q
-        cdf_flat = np.ascontiguousarray(cdf_q.T.reshape(-1))
-        write_mem(out / "mixture_cdf.mem", cdf_flat)
+        cdf_flat = np.ascontiguousarray(cdf_q15.T.reshape(-1))
+        with (out / "mixture_cdf.mem").open("w", newline="\n") as f:
+            for v in cdf_flat:
+                f.write(f"{int(v) & 0xFFFF:04X}\n")
 
-        (out / "mixture_sizes.h").write_text(
-            "\n".join(
-                [
-                    "#pragma once",
-                    '#include "lut_sizes.h"',
-                    "// Generated by mk_lut.py — do not edit.",
-                    f"constexpr int ALPHA_WIDTH = {args.alpha_width};",
-                    f"constexpr int ALPHA_INT_BITS = {args.alpha_int_bits};",
-                    f"constexpr int ALPHA_SCALE = {a_scale};",
-                    "// mixture CDF addr = p * Q + q",
-                    "",
-                ]
-            ),
-            encoding="utf-8",
-        )
         manifest["alpha_source"] = str(args.alpha.resolve())
         manifest["alpha_source_sha256"] = sha256_file(args.alpha)
-        manifest["alpha_scale"] = a_scale
         manifest["mixture_cdf_sha256"] = sha256_file(out / "mixture_cdf.mem")
 
     (out / "manifest.json").write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
-
-    print(f"Q={Q} P={P} L={L} scale={scale} -> {out}")
+    print(f"Q={Q} P={P} L={L} input_scale={scale} -> {out}")
 
 
 if __name__ == "__main__":

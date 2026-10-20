@@ -177,6 +177,10 @@ def main() -> None:
             batch = get_calibration_batch(32)
             quant_gen(batch)
 
+    s = quant_gen.inp.act_quant.scale()
+    s = float(s.detach().cpu().numpy().reshape(-1)[0])
+    np.save(RUN_DIR / "input_scale.npy", np.float32(s))
+
     print()
     print("Running float gen...")
     with torch.no_grad():

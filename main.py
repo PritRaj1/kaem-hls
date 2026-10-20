@@ -50,9 +50,9 @@ def finn() -> None:
 
 
 def main() -> None:
-    host("mk_lut.py")
     host("flax_import.py")
     host("quantize_net.py")
+    host("mk_lut.py")
     finn()
 
 
