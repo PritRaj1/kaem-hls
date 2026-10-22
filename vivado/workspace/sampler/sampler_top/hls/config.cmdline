@@ -1,0 +1,3 @@
+relativeroot=/home/prithvi/Work/kaem-hls/vivado/workspace/sampler
+original_argv=--mode hls --package --config /home/prithvi/Work/kaem-hls/vivado/workspace/sampler/hls_config.cfg --work_dir sampler_top 
+

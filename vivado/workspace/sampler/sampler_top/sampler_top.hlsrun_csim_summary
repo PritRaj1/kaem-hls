@@ -1,0 +1,156 @@
+<ENTRY>
+{
+ "thisFile": "/home/prithvi/Work/kaem-hls/vivado/workspace/sampler/sampler_top/sampler_top.hlsrun_csim_summary",
+ "connectId": "",
+ "serverToken": "",
+ "timestamp": "0"
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Wed Oct 21 18:16:27 2026",
+ "timestampMillis": "1792631787949",
+ "buildStep": {
+  "cmdId": "5343527d-d235-4c88-b4a1-97c855b14350",
+  "name": "vitis-run",
+  "logFile": "/home/prithvi/Work/kaem-hls/vivado/workspace/sampler/sampler_top/logs/sampler_top.steps.log",
+  "commandLine": "/opt/Xilinx/2025.1/Vitis/bin/unwrapped/lnx64.o/vitis-run  --mode hls --csim --config /home/prithvi/Work/kaem-hls/vivado/workspace/sampler/hls_config.cfg --work_dir sampler_top ",
+  "args": [
+   "--mode",
+   "hls",
+   "--csim",
+   "--config",
+   "/home/prithvi/Work/kaem-hls/vivado/workspace/sampler/hls_config.cfg",
+   "--work_dir",
+   "sampler_top"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/prithvi/Work/kaem-hls/vivado/workspace/sampler"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Wed Oct 21 18:16:27 2026",
+ "timestampMillis": "1792631787949",
+ "status": {
+  "cmdId": "5343527d-d235-4c88-b4a1-97c855b14350",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_FlowMetaData",
+ "dateTimestamp": "Wed Oct 21 18:16:30 2026",
+ "timestampMillis": "1792631790748",
+ "buildSummary": {
+  "hardwarePlatform": "",
+  "hardwareDsa": "",
+  "platformDirectory": "",
+  "runtime": "",
+  "systemConfig": "",
+  "flow": "BF_RUN",
+  "target": "TT_HLS_C_SIM",
+  "kernels": [
+   {
+    "base": {
+     "type": "KERNEL",
+     "name": "sampler_top",
+     "file": "",
+     "reports": [],
+     "uuid": ""
+    },
+    "sources": [
+     "/home/prithvi/Work/kaem-hls/vivado/hls/sampler.cpp"
+    ],
+    "psSources": [],
+    "cuNames": [],
+    "type": "HLS",
+    "frequency": 0,
+    "freqUnits": ""
+   }
+  ],
+  "toolVersion": "2025.1"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Wed Oct 21 18:16:30 2026",
+ "timestampMillis": "1792631790748",
+ "buildStep": {
+  "cmdId": "56b2237f-92bd-4e9b-9609-f6c8fccaeb61",
+  "name": "",
+  "logFile": "/home/prithvi/Work/kaem-hls/vivado/workspace/sampler/sampler_top/hls/hls.log",
+  "commandLine": "",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/prithvi/Work/kaem-hls/vivado/workspace/sampler"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Wed Oct 21 18:16:30 2026",
+ "timestampMillis": "1792631790749",
+ "status": {
+  "cmdId": "56b2237f-92bd-4e9b-9609-f6c8fccaeb61",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Wed Oct 21 18:16:30 2026",
+ "timestampMillis": "1792631790986",
+ "status": {
+  "cmdId": "56b2237f-92bd-4e9b-9609-f6c8fccaeb61",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Wed Oct 21 18:16:31 2026",
+ "timestampMillis": "1792631791030",
+ "status": {
+  "cmdId": "5343527d-d235-4c88-b4a1-97c855b14350",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Wed Oct 21 18:16:31 2026",
+ "timestampMillis": "1792631791030",
+ "report": {
+  "path": "",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Wed Oct 21 18:16:31 2026",
+ "timestampMillis": "1792631791031",
+ "report": {
+  "path": "",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>

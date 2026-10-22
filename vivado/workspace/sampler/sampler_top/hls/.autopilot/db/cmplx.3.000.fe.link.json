@@ -1,0 +1,21 @@
+{
+  "0": {
+    "basicblocks": 13,
+    "calls": "",
+    "control_depth": 2,
+    "def_use_depth": 3,
+    "file": "sampler.cpp",
+    "fileloc": 9,
+    "instructions": 192,
+    "loads": {
+      "L": 7,
+      "T": 2
+    },
+    "memory_accesses": 37,
+    "name": "sampler_top",
+    "stores": {
+      "L": 10
+    },
+    "total_instructions": 1092
+  }
+}

@@ -36,6 +36,15 @@ cp -r /$PATH_TO/thermo-ebms/runs/kaem_celeb_a data/ # Edit
 
 ```bash
 uv run python main.py
+cp build/lut_assets/{lut_sizes.h, lut_i8.bin} vivado/hls/ # Move generated header to hls include path
+```
+
+## Vitis
+
+Run synthesis in Vitis HLS:
+
+```bash
+vitis -w vivado/workspace
 ```
 
 ## Vivado
@@ -48,3 +57,10 @@ vivado /tmp/finn_dev_$USER/vivado_stitch_proj_*/finn_vivado_stitch_proj.xpr
 2. `Run Synthesis`
 3. `Run Implementation`
 4. `Generate bitstream`
+
+Copy out of container:
+
+```bash
+mkdir -p ~/Work/kaem-hls/data/kaem_celeb_a/stitch_proj
+cp -a /tmp/finn_dev_$USER/vivado_stitch_proj_*/* ~/Work/kaem-hls/data/kaem_celeb_a/stitch_proj/
+```

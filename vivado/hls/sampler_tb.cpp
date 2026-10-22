@@ -12,7 +12,7 @@ extern "C" void sampler_top(ap_uint<16>, ap_uint<16> *, ap_int<8> *,
                             hls::stream<axis_t> &);
 
 int main() {
-  std::ifstream f("../../build/lut_assets/lut_i8.bin", std::ios::binary);
+  std::ifstream f("lut_i8.bin", std::ios::binary);
   if (!f) {
     std::fprintf(stderr, "run mk_lut.py first\n");
     return 1;
