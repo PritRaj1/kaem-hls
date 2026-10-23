@@ -36,12 +36,12 @@ cp -r /$PATH_TO/thermo-ebms/runs/kaem_celeb_a data/ # Edit
 
 ```bash
 uv run python main.py
-cp build/lut_assets/{lut_sizes.h, lut_i8.bin} vivado/hls/ # Move generated header to hls include path
+cp build/lut_assets/{lut_sizes.h,lut_i8.bin} vivado/hls/ # Move generated header to hls include path
 ```
 
 ## Vitis
 
-Run synthesis in Vitis HLS:
+Run synthesis in Vitis HLS to produce the latent prior sampler:
 
 ```bash
 vitis -w vivado/workspace
@@ -54,13 +54,8 @@ vivado /tmp/finn_dev_$USER/vivado_stitch_proj_*/finn_vivado_stitch_proj.xpr
 ```
 
 1. Add constraints for [desired FPGA](https://www.amd.com/en/developer/resources/adaptive-socs-and-fpgas/package-pinout-files/kintex-7-package-device-pinout-files.html), using `Add Sources`. An example has been provided for my versal (xc7k325tffg676-2) [here](./vivado/board.xdc).
-2. `Run Synthesis`
-3. `Run Implementation`
-4. `Generate bitstream`
-
-Copy out of container:
-
-```bash
-mkdir -p ~/Work/kaem-hls/data/kaem_celeb_a/stitch_proj
-cp -a /tmp/finn_dev_$USER/vivado_stitch_proj_*/* ~/Work/kaem-hls/data/kaem_celeb_a/stitch_proj/
-```
+2. Add design files for the sampler with `Settings -> IP -> Repository` @ `vivado/workspace/sampler/sampler_top/hls/impl/ip`.
+3. Create a new block design and import `sampler_top` and `kaem_gen_wrapper`.
+4. `Run Synthesis`
+5. `Run Implementation`
+6. `Generate bitstream`
