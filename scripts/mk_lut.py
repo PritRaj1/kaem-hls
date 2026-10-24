@@ -27,6 +27,17 @@ def write_mem_i8(path: Path, values: np.ndarray) -> None:
             f.write(f"{int(v) & 0xFF:02X}\n")
 
 
+def write_coe_i8(path: Path, values: np.ndarray) -> None:
+    """BMG .coe init: signed int8 as hex bytes."""
+    vals = values.reshape(-1)
+    body = ",\n".join(f"{int(v) & 0xFF:02X}" for v in vals)
+    path.write_text(
+        f"memory_initialization_radix=16;\nmemory_initialization_vector=\n{body};\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+
+
 def resolve_scale(args: argparse.Namespace) -> float:
     if args.scale is not None:
         return float(args.scale)
@@ -110,6 +121,7 @@ def main() -> None:
 
     # BRAM init: one 8-bit hex byte per line
     write_mem_i8(out / "lut.mem", flat)
+    write_coe_i8(out / "lut.coe", flat)
     flat.tofile(out / "lut_i8.bin")
 
     # Metadata json: shape, scales, sha256 of inputs/outputs

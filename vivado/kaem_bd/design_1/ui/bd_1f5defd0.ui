@@ -1,0 +1,36 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.908676",
+   "Default View_TopLeft":"-821,-585",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0 TLS
+#  -string -flagsOSRD
+preplace port port-id_clk_50MHz -pg 1 -lvl 0 -x -700 -y -290 -defaultsOSRD
+preplace port port-id_reset_rtl_0 -pg 1 -lvl 0 -x -700 -y -60 -defaultsOSRD
+preplace inst sampler_top_0 -pg 1 -lvl 3 -x 120 -y 70 -defaultsOSRD
+preplace inst kaem_gen_wrapper_0 -pg 1 -lvl 5 -x 1000 -y -100 -defaultsOSRD
+preplace inst blk_mem_gen_0 -pg 1 -lvl 2 -x -230 -y -410 -defaultsOSRD
+preplace inst clk_wiz -pg 1 -lvl 3 -x 120 -y -300 -defaultsOSRD
+preplace inst rst_clk_wiz_100M -pg 1 -lvl 4 -x 570 -y -30 -defaultsOSRD
+preplace inst jtag_axi_0 -pg 1 -lvl 1 -x -520 -y 210 -defaultsOSRD
+preplace inst axi_smc -pg 1 -lvl 5 -x 1000 -y 150 -defaultsOSRD
+preplace netloc blk_mem_gen_0_douta 1 1 2 -350 100 N
+preplace netloc clk_100MHz_1 1 0 3 NJ -290 N -290 NJ
+preplace netloc clk_wiz_clk_out1 1 0 5 -630 -70 -370 -70 -70 -70 330 -140 850
+preplace netloc clk_wiz_locked 1 3 1 340 -290n
+preplace netloc reset_rtl_0_1 1 0 4 NJ -60 N -60 -50 -50 N
+preplace netloc rst_clk_wiz_100M_peripheral_aresetn 1 0 5 -620 80 N 80 -60 -30 310 80 860
+preplace netloc sampler_top_0_lut_address0 1 1 3 -360 160 N 160 290
+preplace netloc sampler_top_0_lut_ce0 1 1 3 -340 -40 N -40 290
+preplace netloc axi_smc_M00_AXI 1 2 4 -50 -20 300J 70 NJ 70 1140
+preplace netloc jtag_axi_0_M_AXI 1 1 4 NJ 210 NJ 210 340J 130 NJ
+preplace netloc sampler_top_0_m_axis_z 1 3 2 320 -130 N
+levelinfo -pg 1 -700 -520 -230 120 570 1000 1160
+pagesize -pg 1 -db -bbox -sgen -830 -830 1160 670
+"
+}
+{
+   "da_axi4_cnt":"1",
+   "da_board_cnt":"4",
+   "da_clkrst_cnt":"1"
+}

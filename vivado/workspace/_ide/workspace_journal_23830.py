@@ -5,4 +5,3 @@ client = vitis.create_client()
 client.set_workspace(path="workspace")
 
 vitis.dispose()
-

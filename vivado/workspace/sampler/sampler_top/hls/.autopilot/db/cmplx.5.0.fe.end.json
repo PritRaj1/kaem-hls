@@ -1,4 +1,16 @@
 {
+    "0": {
+        "name": "sampler_top",
+        "file": "sampler.cpp",
+        "fileloc": "9",
+        "instructions": "25",
+        "total_instructions": "61",
+        "calls": "1",
+        "basicblocks": "1",
+        "memory_accesses": "0",
+        "control_depth": "0",
+        "def_use_depth": "4"
+    },
     "1": {
         "name": "sampler_top_Pipeline_VITIS_LOOP_21_1",
         "file": "\/home\/prithvi\/Work\/kaem-hls\/vivado\/hls\/sampler.cpp",
@@ -20,17 +32,5 @@
         "loops": {
             "L": "1"
         }
-    },
-    "0": {
-        "name": "sampler_top",
-        "file": "sampler.cpp",
-        "fileloc": "9",
-        "instructions": "25",
-        "total_instructions": "61",
-        "calls": "1",
-        "basicblocks": "1",
-        "memory_accesses": "0",
-        "control_depth": "0",
-        "def_use_depth": "4"
     }
 }
