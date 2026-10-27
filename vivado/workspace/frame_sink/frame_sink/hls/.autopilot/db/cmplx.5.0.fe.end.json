@@ -1,0 +1,24 @@
+{
+    "0": {
+        "name": "frame_sink",
+        "file": "frame_sink.cpp",
+        "fileloc": "8",
+        "instructions": "33",
+        "total_instructions": "33",
+        "calls": "",
+        "basicblocks": "3",
+        "memory_accesses": "4",
+        "control_depth": "0",
+        "def_use_depth": "1",
+        "loads": {
+            "L": "1"
+        },
+        "stores": {
+            "L": "2",
+            "T": "1"
+        },
+        "loops": {
+            "L": "1"
+        }
+    }
+}

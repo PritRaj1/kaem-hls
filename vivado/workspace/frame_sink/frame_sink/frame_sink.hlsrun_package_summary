@@ -1,0 +1,156 @@
+<ENTRY>
+{
+ "thisFile": "/home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink/frame_sink/frame_sink.hlsrun_package_summary",
+ "connectId": "",
+ "serverToken": "",
+ "timestamp": "0"
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Tue Oct 27 14:28:25 2026",
+ "timestampMillis": "1793136505504",
+ "buildStep": {
+  "cmdId": "86edf6da-3f16-4b64-abf0-21a9d70239c7",
+  "name": "vitis-run",
+  "logFile": "/home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink/frame_sink/logs/frame_sink.steps.log",
+  "commandLine": "/opt/Xilinx/2025.1/Vitis/bin/unwrapped/lnx64.o/vitis-run  --mode hls --package --config /home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink/hls_config.cfg --work_dir frame_sink ",
+  "args": [
+   "--mode",
+   "hls",
+   "--package",
+   "--config",
+   "/home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink/hls_config.cfg",
+   "--work_dir",
+   "frame_sink"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Oct 27 14:28:25 2026",
+ "timestampMillis": "1793136505504",
+ "status": {
+  "cmdId": "86edf6da-3f16-4b64-abf0-21a9d70239c7",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_FlowMetaData",
+ "dateTimestamp": "Tue Oct 27 14:28:27 2026",
+ "timestampMillis": "1793136507851",
+ "buildSummary": {
+  "hardwarePlatform": "",
+  "hardwareDsa": "",
+  "platformDirectory": "",
+  "runtime": "",
+  "systemConfig": "",
+  "flow": "BF_RUN",
+  "target": "TT_HLS_IP",
+  "kernels": [
+   {
+    "base": {
+     "type": "KERNEL",
+     "name": "frame_sink",
+     "file": "/home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink/frame_sink/frame_sink.zip",
+     "reports": [],
+     "uuid": ""
+    },
+    "sources": [
+     "/home/prithvi/Work/kaem-hls/vivado/hls/frame_sink.cpp"
+    ],
+    "psSources": [],
+    "cuNames": [],
+    "type": "HLS",
+    "frequency": 0,
+    "freqUnits": ""
+   }
+  ],
+  "toolVersion": "2025.1"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Oct 27 14:28:27 2026",
+ "timestampMillis": "1793136507851",
+ "buildStep": {
+  "cmdId": "29011055-3180-4577-8305-e8e17beb1da3",
+  "name": "",
+  "logFile": "/home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink/frame_sink/hls/hls.log",
+  "commandLine": "",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Oct 27 14:28:27 2026",
+ "timestampMillis": "1793136507851",
+ "status": {
+  "cmdId": "29011055-3180-4577-8305-e8e17beb1da3",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Oct 27 14:28:51 2026",
+ "timestampMillis": "1793136531848",
+ "status": {
+  "cmdId": "29011055-3180-4577-8305-e8e17beb1da3",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Oct 27 14:28:51 2026",
+ "timestampMillis": "1793136531887",
+ "status": {
+  "cmdId": "86edf6da-3f16-4b64-abf0-21a9d70239c7",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Oct 27 14:28:51 2026",
+ "timestampMillis": "1793136531887",
+ "report": {
+  "path": "",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Oct 27 14:28:51 2026",
+ "timestampMillis": "1793136531887",
+ "report": {
+  "path": "",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>

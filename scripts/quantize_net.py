@@ -18,6 +18,7 @@ from kaem_hls import (
 )
 
 RUN_DIR = Path("data/kaem_celeb_a").resolve()
+IMG_DIR = Path("images").resolve()
 WEIGHT_DIR = RUN_DIR / "flax_weights"
 QUANT_WEIGHT_DIR = RUN_DIR / "quant_weights"
 LUT_PATH = RUN_DIR / "inv_cdf_lut.npy"
@@ -82,7 +83,7 @@ def compare_outputs(
         ref,
         quant,
         ["Float / Ref", "Quantized", "8-bit weights / 8-bit acts"],
-        RUN_DIR,
+        IMG_DIR,
     )
 
 

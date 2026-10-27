@@ -1,0 +1,7 @@
+frame_sink_ctrl_s_axi
+frame_sink_regslice_both
+frame_sink_regslice_both
+frame_sink_regslice_both
+frame_sink_regslice_both
+frame_sink_flow_control_loop_delay_pipe
+frame_sink

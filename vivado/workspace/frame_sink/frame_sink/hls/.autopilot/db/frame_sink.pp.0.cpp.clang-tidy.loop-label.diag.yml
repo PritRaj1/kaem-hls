@@ -1,0 +1,49 @@
+---
+MainSourceFile:  /home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink/frame_sink/hls/.autopilot/db/frame_sink.pp.0.cpp
+Diagnostics:     
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_676_1:  '
+    FileOffset:      676
+    FilePath:        /opt/Xilinx/2025.1/Vitis/common/technology/autopilot/etc/ap_int_ref.h
+    Replacements:    
+      - FilePath:        /home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink/frame_sink/hls/.autopilot/db/frame_sink.pp.0.cpp
+        Offset:          279896
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_676_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_690_1:  '
+    FileOffset:      690
+    FilePath:        /opt/Xilinx/2025.1/Vitis/common/technology/autopilot/etc/ap_int_ref.h
+    Replacements:    
+      - FilePath:        /home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink/frame_sink/hls/.autopilot/db/frame_sink.pp.0.cpp
+        Offset:          280362
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_690_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_704_1:  '
+    FileOffset:      704
+    FilePath:        /opt/Xilinx/2025.1/Vitis/common/technology/autopilot/etc/ap_int_ref.h
+    Replacements:    
+      - FilePath:        /home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink/frame_sink/hls/.autopilot/db/frame_sink.pp.0.cpp
+        Offset:          280829
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_704_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_1248_1:  '
+    FileOffset:      1248
+    FilePath:        /opt/Xilinx/2025.1/Vitis/common/technology/autopilot/etc/ap_fixed_base.h
+    Replacements:    
+      - FilePath:        /home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink/frame_sink/hls/.autopilot/db/frame_sink.pp.0.cpp
+        Offset:          575335
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_1248_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_16_1:  '
+    FileOffset:      16
+    FilePath:        /home/prithvi/Work/kaem-hls/vivado/hls/frame_sink.cpp
+    Replacements:    
+      - FilePath:        /home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink/frame_sink/hls/.autopilot/db/frame_sink.pp.0.cpp
+        Offset:          1045178
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_16_1: '
+...

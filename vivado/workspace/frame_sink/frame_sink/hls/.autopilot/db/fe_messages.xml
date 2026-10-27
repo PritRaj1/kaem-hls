@@ -1,0 +1,21 @@
+<xilinx:hls_fe_msgs>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="directive:1:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaContext="directive" ARG_PragmaFunction="frame_sink" ARG_PragmaIsValid="1" ARG_PragmaOptions="name=frame_sink" ARG_PragmaType="top" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/frame_sink.cpp:10:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="frame_sink" ARG_PragmaIsValid="1" ARG_PragmaOptions="axis port = s_axis" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/frame_sink.cpp:11:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="frame_sink" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port = buf bundle = ctrl" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/frame_sink.cpp:12:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="frame_sink" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port = n_rx bundle = ctrl" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/frame_sink.cpp:13:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="frame_sink" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port = return bundle = ctrl" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/frame_sink.cpp:17:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="frame_sink" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+</xilinx:hls_fe_msgs>
+

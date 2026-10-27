@@ -205,6 +205,24 @@
                 "SV": "xilinx.com:hls:sampler_top:1.0",
                 "TM": "both",
                 "TU": "register"
+            },
+            "V4": {
+                "VT": "AC",
+                "BA": "0x00010000",
+                "HA": "0x0001FFFF",
+                "BP": "C_S_AXI_CTRL_BASEADDR",
+                "HP": "C_S_AXI_CTRL_HIGHADDR",
+                "MA": "Data",
+                "MX": "/jtag_axi_0",
+                "MI": "M_AXI",
+                "MS": "SEG_frame_sink_0_Reg",
+                "MV": "xilinx.com:ip:jtag_axi:1.2",
+                "SX": "/frame_sink_0",
+                "SI": "s_axi_ctrl",
+                "SS": "Reg",
+                "SV": "xilinx.com:hls:frame_sink:1.0",
+                "TM": "both",
+                "TU": "register"
             }
         },
         "edges": [
@@ -218,6 +236,11 @@
             },
             {
                 "src": "V3",
+                "trg": "V2",
+                "EH": "2"
+            },
+            {
+                "src": "V4",
                 "trg": "V2",
                 "EH": "2"
             }

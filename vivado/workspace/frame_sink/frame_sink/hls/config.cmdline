@@ -1,0 +1,3 @@
+relativeroot=/home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink
+original_argv=--mode hls --package --config /home/prithvi/Work/kaem-hls/vivado/workspace/frame_sink/hls_config.cfg --work_dir frame_sink 
+
