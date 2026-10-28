@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<BindInfo>
-	<BindNode BINDTYPE="op" DISPLAY="bind_op add" ID="" IMPL="fabric" LATENCY="0" OPTYPE="add" PRAGMA="" RTLNAME="i_fu_137_p2" SOURCE="/home/prithvi/Work/kaem-hls/vivado/hls/frame_sink.cpp:16" VARIABLE="i" MODULE="frame_sink" LOOP="VITIS_LOOP_16_1" BUNDLEDNAME="" DSP="0" BRAM="0" URAM="0" USAGE="" STORAGESUBTYPE="" STORAGESIZE=""/>
-	<BindNode BINDTYPE="op" DISPLAY="bind_op seteq" ID="" IMPL="auto" LATENCY="0" OPTYPE="seteq" PRAGMA="" RTLNAME="icmp_ln16_fu_143_p2" SOURCE="/home/prithvi/Work/kaem-hls/vivado/hls/frame_sink.cpp:16" VARIABLE="icmp_ln16" MODULE="frame_sink" LOOP="VITIS_LOOP_16_1" BUNDLEDNAME="" DSP="0" BRAM="0" URAM="0" USAGE="" STORAGESUBTYPE="" STORAGESIZE=""/>
-	<BindNode BINDTYPE="adapter" DISPLAY="bind_adapter axilite" ID="" IMPL="" LATENCY="" OPTYPE="" PRAGMA="" RTLNAME="ctrl_s_axi_U" SOURCE="" VARIABLE="" MODULE="frame_sink" LOOP="" BUNDLEDNAME="ctrl" DSP="0" BRAM="32" URAM="0" USAGE="interface" STORAGESUBTYPE="s_axilite" STORAGESIZE=""/>
-	<BindNode BINDTYPE="interface" DISPLAY="bind_storage bram" ID="" IMPL="" LATENCY="" OPTYPE="" PRAGMA="yes" RTLNAME="" SOURCE="" VARIABLE="buf_r" MODULE="frame_sink" LOOP="" BUNDLEDNAME="" DSP="0" BRAM="0" URAM="0" USAGE="interface" STORAGESUBTYPE="bram" STORAGESIZE="32 0 1"/>
-</BindInfo>

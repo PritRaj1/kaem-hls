@@ -1,0 +1,156 @@
+<ENTRY>
+{
+ "thisFile": "/home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/axis2uart.hlsrun_package_summary",
+ "connectId": "",
+ "serverToken": "",
+ "timestamp": "0"
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Wed Oct 28 16:09:28 2026",
+ "timestampMillis": "1793228968620",
+ "buildStep": {
+  "cmdId": "d71bab39-af9e-4d15-820e-a85622a0b724",
+  "name": "vitis-run",
+  "logFile": "/home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/logs/axis2uart.steps.log",
+  "commandLine": "/opt/Xilinx/2025.1/Vitis/bin/unwrapped/lnx64.o/vitis-run  --mode hls --package --config /home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/hls_config.cfg --work_dir axis2uart ",
+  "args": [
+   "--mode",
+   "hls",
+   "--package",
+   "--config",
+   "/home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/hls_config.cfg",
+   "--work_dir",
+   "axis2uart"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Wed Oct 28 16:09:28 2026",
+ "timestampMillis": "1793228968620",
+ "status": {
+  "cmdId": "d71bab39-af9e-4d15-820e-a85622a0b724",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_FlowMetaData",
+ "dateTimestamp": "Wed Oct 28 16:09:30 2026",
+ "timestampMillis": "1793228970796",
+ "buildSummary": {
+  "hardwarePlatform": "",
+  "hardwareDsa": "",
+  "platformDirectory": "",
+  "runtime": "",
+  "systemConfig": "",
+  "flow": "BF_RUN",
+  "target": "TT_HLS_IP",
+  "kernels": [
+   {
+    "base": {
+     "type": "KERNEL",
+     "name": "axis2uart",
+     "file": "/home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/axis2uart.zip",
+     "reports": [],
+     "uuid": ""
+    },
+    "sources": [
+     "/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp"
+    ],
+    "psSources": [],
+    "cuNames": [],
+    "type": "HLS",
+    "frequency": 0,
+    "freqUnits": ""
+   }
+  ],
+  "toolVersion": "2025.1"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Wed Oct 28 16:09:30 2026",
+ "timestampMillis": "1793228970797",
+ "buildStep": {
+  "cmdId": "4b3050f3-f2a1-407c-9512-217552cce996",
+  "name": "",
+  "logFile": "/home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/hls/hls.log",
+  "commandLine": "",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Wed Oct 28 16:09:30 2026",
+ "timestampMillis": "1793228970797",
+ "status": {
+  "cmdId": "4b3050f3-f2a1-407c-9512-217552cce996",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Wed Oct 28 16:09:55 2026",
+ "timestampMillis": "1793228995244",
+ "status": {
+  "cmdId": "4b3050f3-f2a1-407c-9512-217552cce996",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Wed Oct 28 16:09:55 2026",
+ "timestampMillis": "1793228995279",
+ "status": {
+  "cmdId": "d71bab39-af9e-4d15-820e-a85622a0b724",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Wed Oct 28 16:09:55 2026",
+ "timestampMillis": "1793228995280",
+ "report": {
+  "path": "",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Wed Oct 28 16:09:55 2026",
+ "timestampMillis": "1793228995280",
+ "report": {
+  "path": "",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>

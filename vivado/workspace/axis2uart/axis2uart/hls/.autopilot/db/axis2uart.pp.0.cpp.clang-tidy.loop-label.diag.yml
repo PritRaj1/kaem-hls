@@ -1,0 +1,67 @@
+---
+MainSourceFile:  /home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/hls/.autopilot/db/axis2uart.pp.0.cpp
+Diagnostics:     
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_676_1:  '
+    FileOffset:      676
+    FilePath:        /opt/Xilinx/2025.1/Vitis/common/technology/autopilot/etc/ap_int_ref.h
+    Replacements:    
+      - FilePath:        /home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/hls/.autopilot/db/axis2uart.pp.0.cpp
+        Offset:          279894
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_676_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_690_1:  '
+    FileOffset:      690
+    FilePath:        /opt/Xilinx/2025.1/Vitis/common/technology/autopilot/etc/ap_int_ref.h
+    Replacements:    
+      - FilePath:        /home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/hls/.autopilot/db/axis2uart.pp.0.cpp
+        Offset:          280360
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_690_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_704_1:  '
+    FileOffset:      704
+    FilePath:        /opt/Xilinx/2025.1/Vitis/common/technology/autopilot/etc/ap_int_ref.h
+    Replacements:    
+      - FilePath:        /home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/hls/.autopilot/db/axis2uart.pp.0.cpp
+        Offset:          280827
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_704_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_1248_1:  '
+    FileOffset:      1248
+    FilePath:        /opt/Xilinx/2025.1/Vitis/common/technology/autopilot/etc/ap_fixed_base.h
+    Replacements:    
+      - FilePath:        /home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/hls/.autopilot/db/axis2uart.pp.0.cpp
+        Offset:          575333
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_1248_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_26_1:  '
+    FileOffset:      26
+    FilePath:        /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp
+    Replacements:    
+      - FilePath:        /home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/hls/.autopilot/db/axis2uart.pp.0.cpp
+        Offset:          1045509
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_26_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_28_2:  '
+    FileOffset:      28
+    FilePath:        /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp
+    Replacements:    
+      - FilePath:        /home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/hls/.autopilot/db/axis2uart.pp.0.cpp
+        Offset:          1045578
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_28_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_30_3:  '
+    FileOffset:      30
+    FilePath:        /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp
+    Replacements:    
+      - FilePath:        /home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/hls/.autopilot/db/axis2uart.pp.0.cpp
+        Offset:          1045679
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_30_3: '
+...

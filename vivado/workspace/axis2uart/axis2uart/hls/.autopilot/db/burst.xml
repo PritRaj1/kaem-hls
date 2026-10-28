@@ -1,0 +1,5 @@
+<VitisHLS:BurstInfo>
+    <burst group="BURST_VERBOSE_MISSED" fe_name="CouldNotAnalyzeBoundsPatternMissed" src_info="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:30:24" msg_id="214-252" msg_severity="INFO" msg_body="Could not analyze the loop bounds" resolution="214-252" LoopLoc="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:30:24" LoopName="VITIS_LOOP_30_3" ParentFunc="axis2uart"/>
+    <burst group="BURST_VERBOSE_MISSED" fe_name="NonSimpleMemoryAccessMissed" src_info="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:36:27" msg_id="214-227" msg_severity="INFO" msg_body="Volatile or Atomic access cannot be transformed" resolution="214-227" BundleName="gmem" VarName="uart" ParentFunc="axis2uart" OrigID="for.inc.store.2" OrigAccess-DebugLoc="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:36:27" OrigDirection="write"/>
+</VitisHLS:BurstInfo>
+

@@ -83,7 +83,7 @@ def compare_outputs(
         ref,
         quant,
         ["Float / Ref", "Quantized", "8-bit weights / 8-bit acts"],
-        IMG_DIR,
+        IMG_DIR / "error.png",
     )
 
 

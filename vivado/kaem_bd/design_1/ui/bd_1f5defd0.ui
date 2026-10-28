@@ -1,39 +1,48 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.908676",
-   "Default View_TopLeft":"-249,-639",
+   "Default View_ScaleFactor":"0.181357",
+   "Default View_TopLeft":"-116,-1930",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0 TLS
 #  -string -flagsOSRD
-preplace port port-id_clk_50MHz -pg 1 -lvl 0 -x -700 -y -290 -defaultsOSRD
-preplace port port-id_reset_rtl_0 -pg 1 -lvl 0 -x -700 -y -60 -defaultsOSRD
-preplace inst sampler_top_0 -pg 1 -lvl 3 -x 20 -y 70 -defaultsOSRD
-preplace inst kaem_gen_wrapper_0 -pg 1 -lvl 7 -x 1420 -y -200 -defaultsOSRD
-preplace inst blk_mem_gen_0 -pg 1 -lvl 2 -x -280 -y -410 -defaultsOSRD
-preplace inst clk_wiz -pg 1 -lvl 3 -x 20 -y -300 -defaultsOSRD
-preplace inst rst_clk_wiz_100M -pg 1 -lvl 5 -x 810 -y -30 -defaultsOSRD
-preplace inst jtag_axi_0 -pg 1 -lvl 1 -x -520 -y 210 -defaultsOSRD
-preplace inst axi_smc -pg 1 -lvl 6 -x 1140 -y 180 -defaultsOSRD
-preplace inst frame_sink_0 -pg 1 -lvl 4 -x 470 -y -400 -defaultsOSRD
-preplace netloc blk_mem_gen_0_douta 1 1 2 -400 100 N
-preplace netloc clk_100MHz_1 1 0 3 NJ -290 N -290 NJ
-preplace netloc clk_wiz_clk_out1 1 0 7 -630 -70 -420 -70 -170 -70 190 -70 620 90 990 -210 N
-preplace netloc clk_wiz_locked 1 3 2 N -290 630
-preplace netloc reset_rtl_0_1 1 0 5 NJ -60 N -60 -150 -50 N -50 N
-preplace netloc rst_clk_wiz_100M_peripheral_aresetn 1 0 7 -620 80 N 80 -160 -30 310 100 N 100 1000 -190 N
-preplace netloc sampler_top_0_lut_address0 1 1 3 -410 220 N 220 190
-preplace netloc sampler_top_0_lut_ce0 1 1 3 -390 -40 N -40 190
-preplace netloc axi_smc_M00_AXI 1 2 5 -150 -20 NJ -20 610 70 NJ 70 1280
-preplace netloc axi_smc_M01_AXI 1 3 4 320 80 N 80 N 80 1290
-preplace netloc jtag_axi_0_M_AXI 1 1 5 NJ 210 NJ 210 NJ 210 630 160 NJ
-preplace netloc kaem_gen_wrapper_0_m_axis_0 1 3 5 330 -300 N -300 N -300 N -300 1550
-preplace netloc sampler_top_0_m_axis_z 1 3 4 200 -230 N -230 N -230 N
-levelinfo -pg 1 -700 -520 -280 20 470 810 1140 1420 1570
-pagesize -pg 1 -db -bbox -sgen -830 -830 1570 670
+preplace port uart_rtl_0 -pg 1 -lvl 8 -x 2340 -y 580 -defaultsOSRD
+preplace port port-id_clk_50MHz -pg 1 -lvl 0 -x 0 -y 200 -defaultsOSRD
+preplace port port-id_reset_rtl_0 -pg 1 -lvl 0 -x 0 -y 270 -defaultsOSRD
+preplace inst sampler_top_0 -pg 1 -lvl 3 -x 670 -y 480 -defaultsOSRD
+preplace inst kaem_gen_wrapper_0 -pg 1 -lvl 6 -x 1750 -y 220 -defaultsOSRD
+preplace inst blk_mem_gen_0 -pg 1 -lvl 2 -x 370 -y 100 -defaultsOSRD
+preplace inst clk_wiz -pg 1 -lvl 3 -x 670 -y 190 -defaultsOSRD
+preplace inst rst_clk_wiz_100M -pg 1 -lvl 4 -x 1070 -y 290 -defaultsOSRD
+preplace inst jtag_axi_0 -pg 1 -lvl 1 -x 130 -y 580 -defaultsOSRD
+preplace inst axi_smc -pg 1 -lvl 5 -x 1400 -y 610 -defaultsOSRD
+preplace inst axi_uartlite_0 -pg 1 -lvl 6 -x 1750 -y 590 -defaultsOSRD
+preplace inst axis2uart_0 -pg 1 -lvl 7 -x 2130 -y 220 -defaultsOSRD
+preplace inst axi_smc_1 -pg 1 -lvl 7 -x 2130 -y 430 -defaultsOSRD
+preplace netloc blk_mem_gen_0_douta 1 1 2 240 510 N
+preplace netloc clk_100MHz_1 1 0 3 NJ 200 N 200 NJ
+preplace netloc clk_wiz_clk_out1 1 0 7 20 350 230 350 480 350 870 410 1250 410 1560 310 1920
+preplace netloc clk_wiz_locked 1 3 1 890 200n
+preplace netloc reset_rtl_0_1 1 0 4 NJ 270 N 270 480 270 N
+preplace netloc rst_clk_wiz_100M_peripheral_aresetn 1 0 7 30 500 N 500 490 380 860 400 1260 330 1570 320 1930
+preplace netloc sampler_top_0_lut_address0 1 1 3 260 360 N 360 850
+preplace netloc sampler_top_0_lut_ce0 1 1 3 250 370 N 370 840
+preplace netloc kaem_gen_wrapper_0_m_axis_0_tdata 1 6 1 1930 170n
+preplace netloc kaem_gen_wrapper_0_m_axis_0_tvalid 1 6 1 1920 230n
+preplace netloc axis2uart_0_s_axis_TREADY 1 6 1 1930 230n
+preplace netloc axi_smc_M00_AXI 1 2 4 500 390 NJ 390 NJ 390 1540
+preplace netloc jtag_axi_0_M_AXI 1 1 4 NJ 580 NJ 580 NJ 580 NJ
+preplace netloc sampler_top_0_m_axis_z 1 3 3 880 190 N 190 N
+preplace netloc axi_uartlite_0_UART 1 6 2 N 580 N
+preplace netloc kaem_gen_wrapper_0_m_axis_0 1 6 1 1920 150n
+preplace netloc axis2uart_0_m_axi_gmem 1 6 2 1940 70 2320
+preplace netloc axi_smc_1_M00_AXI 1 5 3 1580 510 NJ 510 2320
+preplace netloc axi_smc_M01_AXI 1 5 2 1550 130 NJ
+levelinfo -pg 1 0 130 370 670 1070 1400 1750 2130 2340
+pagesize -pg 1 -db -bbox -sgen -120 0 2460 700
 "
 }
 {
-   "da_axi4_cnt":"3",
-   "da_board_cnt":"4",
+   "da_axi4_cnt":"8",
+   "da_board_cnt":"5",
    "da_clkrst_cnt":"1"
 }

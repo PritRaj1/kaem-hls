@@ -1,0 +1,9 @@
+axis2uart_flow_control_loop_pipe_sequential_init
+axis2uart_gmem_m_axi
+axis2uart_ctrl_s_axi
+axis2uart_regslice_both
+axis2uart_regslice_both
+axis2uart_regslice_both
+axis2uart_regslice_both
+axis2uart_Pipeline_VITIS_LOOP_30_3
+axis2uart

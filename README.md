@@ -54,7 +54,7 @@ vivado /tmp/finn_dev_$USER/vivado_stitch_proj_*/finn_vivado_stitch_proj.xpr
 ```
 
 1. Add constraints for [desired FPGA](https://www.amd.com/en/developer/resources/adaptive-socs-and-fpgas/package-pinout-files/kintex-7-package-device-pinout-files.html), using `Add Sources`. An example has been provided for my versal (xc7k325tffg676-2) [here](./vivado/board.xdc).
-2. Add design files for the sampler with `Settings -> IP -> Repository` @ `vivado/workspace/sampler/sampler_top/hls/impl/ip` and `vivado/workspace/frame_sink/frame_sink/hls/impl/ip`. Additionally source the design files: [vivado/kaem_bd](./vivado/kaem_bd), using  `Add Sources`.
+2. Add design files for the sampler with `Settings -> IP -> Repository` @ `vivado/workspace/sampler/sampler_top/hls/impl/ip` and `vivado/workspace/axis2uart/axis2uart/hls/impl/ip`. Additionally source the design files: [vivado/kaem_bd](./vivado/kaem_bd), using  `Add Sources`.
 3. Open the `design_1` board design from kaem_bd. Also check the BRAM block, should init from `build/lut_assets/lut.coe` and match the [lut_sizes.h](./vivado/hls/lut_sizes.h) width/depth configs. Create HDL wrapper and set `design_1_wrapper` as top.
 4. `Run Synthesis`
 5. `Run Implementation`

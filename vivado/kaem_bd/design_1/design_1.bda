@@ -197,12 +197,12 @@
                 "MA": "Data",
                 "MX": "/jtag_axi_0",
                 "MI": "M_AXI",
-                "MS": "SEG_sampler_top_0_Reg",
+                "MS": "SEG_axis2uart_0_Reg",
                 "MV": "xilinx.com:ip:jtag_axi:1.2",
-                "SX": "/sampler_top_0",
+                "SX": "/axis2uart_0",
                 "SI": "s_axi_ctrl",
                 "SS": "Reg",
-                "SV": "xilinx.com:hls:sampler_top:1.0",
+                "SV": "xilinx.com:hls:axis2uart:1.0",
                 "TM": "both",
                 "TU": "register"
             },
@@ -215,12 +215,30 @@
                 "MA": "Data",
                 "MX": "/jtag_axi_0",
                 "MI": "M_AXI",
-                "MS": "SEG_frame_sink_0_Reg",
+                "MS": "SEG_sampler_top_0_Reg",
                 "MV": "xilinx.com:ip:jtag_axi:1.2",
-                "SX": "/frame_sink_0",
+                "SX": "/sampler_top_0",
                 "SI": "s_axi_ctrl",
                 "SS": "Reg",
-                "SV": "xilinx.com:hls:frame_sink:1.0",
+                "SV": "xilinx.com:hls:sampler_top:1.0",
+                "TM": "both",
+                "TU": "register"
+            },
+            "V5": {
+                "VT": "AC",
+                "BA": "0x0000000000040000",
+                "HA": "0x000000000004FFFF",
+                "BP": "C_BASEADDR",
+                "HP": "C_HIGHADDR",
+                "MA": "Data_m_axi_gmem",
+                "MX": "/axis2uart_0",
+                "MI": "m_axi_gmem",
+                "MS": "SEG_axi_uartlite_0_Reg",
+                "MV": "xilinx.com:hls:axis2uart:1.0",
+                "SX": "/axi_uartlite_0",
+                "SI": "S_AXI",
+                "SS": "Reg",
+                "SV": "xilinx.com:ip:axi_uartlite:2.0",
                 "TM": "both",
                 "TU": "register"
             }
@@ -241,6 +259,11 @@
             },
             {
                 "src": "V4",
+                "trg": "V2",
+                "EH": "2"
+            },
+            {
+                "src": "V5",
                 "trg": "V2",
                 "EH": "2"
             }

@@ -1,0 +1,30 @@
+<xilinx:hls_fe_msgs>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="directive:1:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaContext="directive" ARG_PragmaFunction="axis2uart" ARG_PragmaIsValid="1" ARG_PragmaOptions="name=axis2uart" ARG_PragmaType="top" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:17:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="axis2uart" ARG_PragmaIsValid="1" ARG_PragmaOptions="axis port = s_axis" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:18:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="axis2uart" ARG_PragmaIsValid="1" ARG_PragmaOptions="m_axi port = uart offset = slave bundle = gmem num_read_outstanding = 1 num_write_outstanding = 1 max_read_burst_length = 1 max_write_burst_length = 1" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:21:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="axis2uart" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port = uart bundle = ctrl" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:22:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="axis2uart" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port = status bundle = ctrl" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:23:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="axis2uart" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port = return bundle = ctrl" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:31:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="axis2uart" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="AUTOMATION PRAGMA_MISC" msg_id="214-437" msg_severity="INFO" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:26:20" msg_body="Automatically disabling loop flattening for loop 'VITIS_LOOP_26_1'.">
+        <args LoopName="VITIS_LOOP_26_1"/>
+    </msg>
+    <msg msg_groups="AUTOMATION_VERBOSE_PASSED" msg_id="214-335" msg_severity="INFO" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:26:20" msg_body="loop_flatten 0 1 axis2uart /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:26:20VITIS_LOOP_26_1 /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:26:20">
+        <args LoopLoc="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:26:20" LoopLoc-DebugLoc="File /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp Line 26 Column 20" LoopName="VITIS_LOOP_26_1" PragmaFunction="axis2uart" PragmaIsAuto="1" PragmaOptions="0" PragmaSrcLoc="/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:26:20" PragmaSrcLoc-DebugLoc="File /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp Line 26 Column 20" PragmaType="loop_flatten"/>
+    </msg>
+</xilinx:hls_fe_msgs>
+

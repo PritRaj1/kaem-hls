@@ -1,0 +1,118 @@
+--- !Missed
+Pass:            inline
+Name:            NeverInline
+DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/hls/.autopilot/db/axis2uart.pp.0.cpp, 
+                   Line: 0, Column: 0 }
+Function:        _GLOBAL__sub_I_axis2uart.pp.0.cpp
+Args:            
+  - Callee:          __cxx_global_var_init
+    DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp, 
+                       Line: 13, Column: 0 }
+  - String:          ' not inlined into '
+  - Caller:          _GLOBAL__sub_I_axis2uart.pp.0.cpp
+    DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/workspace/axis2uart/axis2uart/hls/.autopilot/db/axis2uart.pp.0.cpp, 
+                       Line: 0, Column: 0 }
+  - String:          ' because it should never be inlined (cost=never)'
+...
+--- !Missed
+Pass:            inline
+Name:            NeverInline
+Function:        apatb_axis2uart_ir
+Args:            
+  - Callee:          axis2uart
+    DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp, 
+                       Line: 16, Column: 0 }
+  - String:          ' not inlined into '
+  - Caller:          apatb_axis2uart_ir
+  - String:          ' because it should never be inlined (cost=never)'
+...
+--- !Missed
+Pass:            reflow-burst-inference
+Name:            CouldNotAnalyzeBoundsPattern
+DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp, 
+                   Line: 30, Column: 24 }
+Function:        axis2uart
+Args:            
+  - String:          Could not analyze the loop bounds
+  - String:          ' _XLX_SEP_ '
+  - LoopName:        VITIS_LOOP_30_3
+  - String:          ' '
+  - LoopLoc:         '/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:30:24'
+  - String:          ' '
+  - Function:        axis2uart
+    DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp, 
+                       Line: 16, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-inference
+Name:            NonSimpleMemoryAccess
+DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp, 
+                   Line: 36, Column: 27 }
+Function:        axis2uart
+Args:            
+  - String:          Volatile or Atomic access cannot be transformed
+  - String:          ' _XLX_SEP_ '
+  - OrigAccess:      store
+    DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp, 
+                       Line: 36, Column: 27 }
+  - OrigDirection:   write
+  - OrigID:          for.inc.store.2
+  - ArrayName:       uart
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - Function:        axis2uart
+    DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp, 
+                       Line: 16, Column: 0 }
+  - String:          ' '
+...
+--- !Failure
+Pass:            reflow-occurrence-inference
+Name:            NonComputableLoopForm
+DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp, 
+                   Line: 30, Column: 24 }
+Function:        axis2uart
+Args:            
+  - String:          'Could not analyze occurrence information within '''
+  - LoopName:        VITIS_LOOP_30_3
+  - String:          '''('
+  - LoopLoc:         '/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:30:24'
+  - String:          ') . Requires loop in simplify form and with single exit.'
+...
+--- !Passed
+Pass:            reflow-loop-flatten-cost-model
+Name:            FlattenOffInference
+DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp, 
+                   Line: 26, Column: 20 }
+Function:        axis2uart
+Args:            
+  - String:          'Automatically disabling loop flattening for loop '''
+  - LoopName:        VITIS_LOOP_26_1
+  - String:          '''.'
+...
+--- !Passed
+Pass:            reflow-loop-flatten-cost-model
+Name:            AutoParallelPerformanceDrivenVerbosePassed
+DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp, 
+                   Line: 26, Column: 20 }
+Function:        axis2uart
+Args:            
+  - PragmaType:      loop_flatten
+  - String:          ' '
+  - PragmaOptions:   off
+  - String:          ' '
+  - PragmaIsAuto:    '1'
+  - String:          ' '
+  - PragmaFunction:  axis2uart
+  - String:          ' '
+  - PragmaSrcLoc:    '/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:26:20'
+    DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp, 
+                       Line: 26, Column: 20 }
+  - LoopName:        VITIS_LOOP_26_1
+  - String:          ' '
+  - LoopLoc:         '/home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp:26:20'
+    DebugLoc:        { File: /home/prithvi/Work/kaem-hls/vivado/hls/axis2uart.cpp, 
+                       Line: 26, Column: 20 }
+  - String:          ' '
+...
