@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xE19832A3F3675753",
+      "boundary_crc": "0xE19832A3C039997F",
       "design_src": "SBD",
       "device": "xc7k325tffg676-2",
       "name": "bd_a878",
@@ -46,15 +46,15 @@
           },
           "ARUSER_WIDTH": {
             "value": "0",
-            "value_src": "auto_prop"
+            "value_src": "default_prop"
           },
           "AWUSER_WIDTH": {
             "value": "0",
-            "value_src": "auto_prop"
+            "value_src": "default_prop"
           },
           "BUSER_WIDTH": {
             "value": "0",
-            "value_src": "auto_prop"
+            "value_src": "default_prop"
           },
           "CLK_DOMAIN": {
             "value": "/clk_wiz_clk_out1",
@@ -73,8 +73,8 @@
             "value_src": "const_prop"
           },
           "HAS_BURST": {
-            "value": "0",
-            "value_src": "const_prop"
+            "value": "1",
+            "value_src": "ip"
           },
           "HAS_CACHE": {
             "value": "1",
@@ -106,7 +106,7 @@
           },
           "ID_WIDTH": {
             "value": "1",
-            "value_src": "auto_prop"
+            "value_src": "default_prop"
           },
           "INSERT_VIP": {
             "value": "0",
@@ -114,7 +114,7 @@
           },
           "MAX_BURST_LENGTH": {
             "value": "256",
-            "value_src": "const_prop"
+            "value_src": "default_prop"
           },
           "NUM_READ_OUTSTANDING": {
             "value": "1"
@@ -148,11 +148,11 @@
           },
           "RUSER_WIDTH": {
             "value": "0",
-            "value_src": "auto_prop"
+            "value_src": "default_prop"
           },
           "SUPPORTS_NARROW_BURST": {
             "value": "0",
-            "value_src": "const_prop"
+            "value_src": "default_prop"
           },
           "WUSER_BITS_PER_BYTE": {
             "value": "0",
@@ -160,7 +160,7 @@
           },
           "WUSER_WIDTH": {
             "value": "0",
-            "value_src": "auto_prop"
+            "value_src": "default_prop"
           }
         },
         "address_space_ref": "S00_AXI",
@@ -183,7 +183,7 @@
         "parameters": {
           "ADDR_WIDTH": {
             "value": "4",
-            "value_src": "ip_prop"
+            "value_src": "const_prop"
           },
           "ARUSER_WIDTH": {
             "value": "0",
@@ -203,7 +203,7 @@
           },
           "DATA_WIDTH": {
             "value": "32",
-            "value_src": "default"
+            "value_src": "const_prop"
           },
           "FREQ_HZ": {
             "value": "100000000",
@@ -211,27 +211,27 @@
           },
           "HAS_BRESP": {
             "value": "1",
-            "value_src": "default"
+            "value_src": "const_prop"
           },
           "HAS_BURST": {
             "value": "0",
-            "value_src": "ip"
+            "value_src": "const_prop"
           },
           "HAS_CACHE": {
             "value": "0",
-            "value_src": "ip"
+            "value_src": "const_prop"
           },
           "HAS_LOCK": {
             "value": "0",
-            "value_src": "ip"
+            "value_src": "const_prop"
           },
           "HAS_PROT": {
-            "value": "1",
-            "value_src": "default_prop"
+            "value": "0",
+            "value_src": "const_prop"
           },
           "HAS_QOS": {
             "value": "0",
-            "value_src": "ip"
+            "value_src": "const_prop"
           },
           "HAS_REGION": {
             "value": "0",
@@ -239,11 +239,11 @@
           },
           "HAS_RRESP": {
             "value": "1",
-            "value_src": "default"
+            "value_src": "const_prop"
           },
           "HAS_WSTRB": {
             "value": "1",
-            "value_src": "default"
+            "value_src": "const_prop"
           },
           "ID_WIDTH": {
             "value": "0",
@@ -275,11 +275,11 @@
           },
           "PROTOCOL": {
             "value": "AXI4LITE",
-            "value_src": "ip"
+            "value_src": "const_prop"
           },
           "READ_WRITE_MODE": {
             "value": "READ_WRITE",
-            "value_src": "default"
+            "value_src": "const_prop"
           },
           "RUSER_BITS_PER_BYTE": {
             "value": "0"
@@ -309,7 +309,8 @@
         "direction": "I",
         "parameters": {
           "ASSOCIATED_BUSIF": {
-            "value": "M00_AXI:S00_AXI"
+            "value": "M00_AXI:S00_AXI",
+            "value_src": "default"
           },
           "ASSOCIATED_CLKEN": {
             "value": "s_sc_aclken",

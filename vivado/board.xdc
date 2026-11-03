@@ -20,7 +20,5 @@ set_property PACKAGE_PIN D26 [get_ports reset_rtl_0]
 set_property IOSTANDARD LVCMOS33 [get_ports reset_rtl_0]
 
 # USB-UART (CH340)
-set_property PACKAGE_PIN C22 [get_ports uart_rtl_0_txd]
-set_property IOSTANDARD LVCMOS33 [get_ports uart_rtl_0_txd]
-set_property PACKAGE_PIN B20 [get_ports uart_rtl_0_rxd]
-set_property IOSTANDARD LVCMOS33 [get_ports uart_rtl_0_rxd]
+set_property PACKAGE_PIN C22 [get_ports txd]
+set_property IOSTANDARD LVCMOS33 [get_ports txd]

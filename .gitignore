@@ -5,6 +5,9 @@ data/
 build/
 **/lut_assets/
 
+# Temp
+scripts/temp.py
+
 # Prerequisites
 *.d
 
