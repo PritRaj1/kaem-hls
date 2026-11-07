@@ -59,3 +59,10 @@ vivado /tmp/finn_dev_$USER/vivado_stitch_proj_*/finn_vivado_stitch_proj.xpr
 4. `Run Synthesis`
 5. `Run Implementation`
 6. `Generate bitstream`
+7. `Program board`
+
+## Test
+
+```bash
+uv run python scripts/uart_frame.py
+```
