@@ -2,7 +2,7 @@
 //Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2025.1 (lin64) Build 6140274 Wed May 21 22:58:25 MDT 2025
-//Date        : Mon Nov  2 22:58:49 2026
+//Date        : Fri Nov  6 22:28:51 2026
 //Host        : archangel running 64-bit Ubuntu 26.04.1 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -10,36 +10,15 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=10,numReposBlks=10,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=1,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=8,da_board_cnt=5,da_clkrst_cnt=2,synth_mode=Hierarchical}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
+(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=9,numReposBlks=9,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=1,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=8,da_board_cnt=5,da_clkrst_cnt=2,synth_mode=Hierarchical}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
 module design_1
    (clk_50MHz,
     reset_rtl_0,
-    txd,
-    uart_rtl_0_rxd,
-    uart_rtl_0_txd);
+    txd);
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.CLK_50MHZ CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.CLK_50MHZ, CLK_DOMAIN design_1_clk_50MHz, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, INSERT_VIP 0, PHASE 0.0" *) input clk_50MHz;
   (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 RST.RESET_RTL_0 RST" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME RST.RESET_RTL_0, INSERT_VIP 0, POLARITY ACTIVE_LOW" *) input reset_rtl_0;
   output txd;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:uart:1.0 uart_rtl_0 RxD" *) (* X_INTERFACE_MODE = "Master" *) input uart_rtl_0_rxd;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:uart:1.0 uart_rtl_0 TxD" *) output uart_rtl_0_txd;
 
-  wire [3:0]axi_smc_1_M00_AXI_ARADDR;
-  wire axi_smc_1_M00_AXI_ARREADY;
-  wire axi_smc_1_M00_AXI_ARVALID;
-  wire [3:0]axi_smc_1_M00_AXI_AWADDR;
-  wire axi_smc_1_M00_AXI_AWREADY;
-  wire axi_smc_1_M00_AXI_AWVALID;
-  wire axi_smc_1_M00_AXI_BREADY;
-  wire [1:0]axi_smc_1_M00_AXI_BRESP;
-  wire axi_smc_1_M00_AXI_BVALID;
-  wire [31:0]axi_smc_1_M00_AXI_RDATA;
-  wire axi_smc_1_M00_AXI_RREADY;
-  wire [1:0]axi_smc_1_M00_AXI_RRESP;
-  wire axi_smc_1_M00_AXI_RVALID;
-  wire [31:0]axi_smc_1_M00_AXI_WDATA;
-  wire axi_smc_1_M00_AXI_WREADY;
-  wire [3:0]axi_smc_1_M00_AXI_WSTRB;
-  wire axi_smc_1_M00_AXI_WVALID;
   wire [7:0]axi_smc_M00_AXI_ARADDR;
   wire axi_smc_M00_AXI_ARREADY;
   wire axi_smc_M00_AXI_ARVALID;
@@ -109,8 +88,6 @@ module design_1
   wire [31:0]sampler_top_0_m_axis_z_TDATA;
   wire sampler_top_0_m_axis_z_TVALID;
   wire txd;
-  wire uart_rtl_0_rxd;
-  wire uart_rtl_0_txd;
 
   design_1_axi_smc_0 axi_smc
        (.M00_AXI_araddr(axi_smc_M00_AXI_ARADDR),
@@ -210,23 +187,14 @@ module design_1
         .aclk(clk_wiz_clk_out1),
         .aresetn(rst_clk_wiz_100M_peripheral_aresetn));
   design_1_axi_smc_1_0 axi_smc_1
-       (.M00_AXI_araddr(axi_smc_1_M00_AXI_ARADDR),
-        .M00_AXI_arready(axi_smc_1_M00_AXI_ARREADY),
-        .M00_AXI_arvalid(axi_smc_1_M00_AXI_ARVALID),
-        .M00_AXI_awaddr(axi_smc_1_M00_AXI_AWADDR),
-        .M00_AXI_awready(axi_smc_1_M00_AXI_AWREADY),
-        .M00_AXI_awvalid(axi_smc_1_M00_AXI_AWVALID),
-        .M00_AXI_bready(axi_smc_1_M00_AXI_BREADY),
-        .M00_AXI_bresp(axi_smc_1_M00_AXI_BRESP),
-        .M00_AXI_bvalid(axi_smc_1_M00_AXI_BVALID),
-        .M00_AXI_rdata(axi_smc_1_M00_AXI_RDATA),
-        .M00_AXI_rready(axi_smc_1_M00_AXI_RREADY),
-        .M00_AXI_rresp(axi_smc_1_M00_AXI_RRESP),
-        .M00_AXI_rvalid(axi_smc_1_M00_AXI_RVALID),
-        .M00_AXI_wdata(axi_smc_1_M00_AXI_WDATA),
-        .M00_AXI_wready(axi_smc_1_M00_AXI_WREADY),
-        .M00_AXI_wstrb(axi_smc_1_M00_AXI_WSTRB),
-        .M00_AXI_wvalid(axi_smc_1_M00_AXI_WVALID),
+       (.M00_AXI_arready(1'b0),
+        .M00_AXI_awready(1'b0),
+        .M00_AXI_bresp({1'b0,1'b0}),
+        .M00_AXI_bvalid(1'b0),
+        .M00_AXI_rdata({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .M00_AXI_rresp({1'b0,1'b0}),
+        .M00_AXI_rvalid(1'b0),
+        .M00_AXI_wready(1'b0),
         .S00_AXI_araddr({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .S00_AXI_arburst({1'b0,1'b1}),
         .S00_AXI_arcache({1'b0,1'b0,1'b1,1'b1}),
@@ -255,28 +223,6 @@ module design_1
         .S00_AXI_wvalid(1'b0),
         .aclk(clk_wiz_clk_out1),
         .aresetn(rst_clk_wiz_100M_peripheral_aresetn));
-  design_1_axi_uartlite_0_0 axi_uartlite_0
-       (.rx(uart_rtl_0_rxd),
-        .s_axi_aclk(clk_wiz_clk_out1),
-        .s_axi_araddr(axi_smc_1_M00_AXI_ARADDR),
-        .s_axi_aresetn(rst_clk_wiz_100M_peripheral_aresetn),
-        .s_axi_arready(axi_smc_1_M00_AXI_ARREADY),
-        .s_axi_arvalid(axi_smc_1_M00_AXI_ARVALID),
-        .s_axi_awaddr(axi_smc_1_M00_AXI_AWADDR),
-        .s_axi_awready(axi_smc_1_M00_AXI_AWREADY),
-        .s_axi_awvalid(axi_smc_1_M00_AXI_AWVALID),
-        .s_axi_bready(axi_smc_1_M00_AXI_BREADY),
-        .s_axi_bresp(axi_smc_1_M00_AXI_BRESP),
-        .s_axi_bvalid(axi_smc_1_M00_AXI_BVALID),
-        .s_axi_rdata(axi_smc_1_M00_AXI_RDATA),
-        .s_axi_rready(axi_smc_1_M00_AXI_RREADY),
-        .s_axi_rresp(axi_smc_1_M00_AXI_RRESP),
-        .s_axi_rvalid(axi_smc_1_M00_AXI_RVALID),
-        .s_axi_wdata(axi_smc_1_M00_AXI_WDATA),
-        .s_axi_wready(axi_smc_1_M00_AXI_WREADY),
-        .s_axi_wstrb(axi_smc_1_M00_AXI_WSTRB),
-        .s_axi_wvalid(axi_smc_1_M00_AXI_WVALID),
-        .tx(uart_rtl_0_txd));
   design_1_axis2uart_0_3 axis2uart_0
        (.aclk(clk_wiz_clk_out1),
         .aresetn(rst_clk_wiz_100M_peripheral_aresetn),

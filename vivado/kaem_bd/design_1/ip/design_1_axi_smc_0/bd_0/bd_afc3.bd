@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xE8A6E518D7C19D9D",
+      "boundary_crc": "0xE8A6E518D21B1A20",
       "design_src": "SBD",
       "device": "xc7k325tffg676-2",
       "name": "bd_afc3",
@@ -177,8 +177,8 @@
             "value_src": "const_prop"
           },
           "SUPPORTS_NARROW_BURST": {
-            "value": "0",
-            "value_src": "user_prop"
+            "value": "1",
+            "value_src": "default_prop"
           },
           "WUSER_BITS_PER_BYTE": {
             "value": "0",
@@ -2876,7 +2876,7 @@
                 "value": "1"
               },
               "SUPPORTS_NARROW": {
-                "value": "0"
+                "value": "1"
               },
               "S_ARUSER_WIDTH": {
                 "value": "0"
@@ -3097,7 +3097,7 @@
                 "value": "0"
               },
               "SUPPORTS_NARROW": {
-                "value": "0"
+                "value": "1"
               },
               "S_RUSER_BITS_PER_BYTE": {
                 "value": "0"

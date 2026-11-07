@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xE19832A3C039997F",
+      "boundary_crc": "0xE19832A3657601E6",
       "design_src": "SBD",
       "device": "xc7k325tffg676-2",
       "name": "bd_a878",
@@ -226,8 +226,8 @@
             "value_src": "const_prop"
           },
           "HAS_PROT": {
-            "value": "0",
-            "value_src": "const_prop"
+            "value": "1",
+            "value_src": "ip"
           },
           "HAS_QOS": {
             "value": "0",
