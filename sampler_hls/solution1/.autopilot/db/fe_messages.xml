@@ -1,0 +1,27 @@
+<xilinx:hls_fe_msgs>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/prithvi/Work/kaem-hls/vivado/hls/sampler.tcl:13:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaContext="directive" ARG_PragmaFunction="sampler_top" ARG_PragmaIsValid="1" ARG_PragmaOptions="name=sampler_top" ARG_PragmaType="top" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="vivado/hls/sampler.cpp:21:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="sampler_top" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port = q bundle = ctrl" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="vivado/hls/sampler.cpp:22:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="sampler_top" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port = u_q15 bundle = ctrl" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="vivado/hls/sampler.cpp:23:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="sampler_top" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port = return bundle = ctrl" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="vivado/hls/sampler.cpp:24:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="sampler_top" ARG_PragmaIsValid="1" ARG_PragmaOptions="ap_memory port = lut" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="vivado/hls/sampler.cpp:25:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="sampler_top" ARG_PragmaIsValid="1" ARG_PragmaOptions="axis port = m_axis_z" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="vivado/hls/sampler.cpp:31:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="sampler_top" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_INLINE" msg_id="214-178" msg_severity="INFO" msg_loc="vivado/hls/sampler.cpp:20:0" msg_body="Inlining function 'float_to_bits(float)' into 'sampler_top'">
+        <args Callee="float_to_bits(float)" Callee-DebugLoc="File vivado/hls/sampler.cpp Line 9 Column 0" Caller="sampler_top" Caller-DebugLoc="File vivado/hls/sampler.cpp Line 20 Column 0"/>
+    </msg>
+</xilinx:hls_fe_msgs>
+

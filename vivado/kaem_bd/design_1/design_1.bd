@@ -10,7 +10,6 @@
       "validated": "true"
     },
     "design_tree": {
-      "sampler_top_0": "",
       "kaem_gen_wrapper_0": "",
       "blk_mem_gen_0": "",
       "clk_wiz": "",
@@ -18,7 +17,8 @@
       "jtag_axi_0": "",
       "axi_smc": "",
       "axi_smc_1": "",
-      "axis2uart_0": ""
+      "axis2uart_0": "",
+      "sampler_top_0": ""
     },
     "ports": {
       "clk_50MHz": {
@@ -63,14 +63,6 @@
       }
     },
     "components": {
-      "sampler_top_0": {
-        "vlnv": "xilinx.com:hls:sampler_top:1.0",
-        "ip_revision": "2114843208",
-        "xci_name": "design_1_sampler_top_0_0",
-        "xci_path": "ip/design_1_sampler_top_0_0/design_1_sampler_top_0_0.xci",
-        "inst_hier_path": "sampler_top_0",
-        "has_run_ip_tcl": "true"
-      },
       "kaem_gen_wrapper_0": {
         "vlnv": "xilinx.com:module_ref:kaem_gen_wrapper:1.0",
         "ip_revision": "1",
@@ -663,6 +655,14 @@
             "direction": "O"
           }
         }
+      },
+      "sampler_top_0": {
+        "vlnv": "xilinx.com:hls:sampler_top:1.0",
+        "ip_revision": "2114872588",
+        "xci_name": "design_1_sampler_top_0_1",
+        "xci_path": "ip/design_1_sampler_top_0_1/design_1_sampler_top_0_1.xci",
+        "inst_hier_path": "sampler_top_0",
+        "has_run_ip_tcl": "true"
       }
     },
     "interface_nets": {
@@ -722,11 +722,11 @@
           "kaem_gen_wrapper_0/ap_clk",
           "rst_clk_wiz_100M/slowest_sync_clk",
           "blk_mem_gen_0/clka",
-          "sampler_top_0/ap_clk",
           "axi_smc/aclk",
           "jtag_axi_0/aclk",
           "axi_smc_1/aclk",
-          "axis2uart_0/aclk"
+          "axis2uart_0/aclk",
+          "sampler_top_0/ap_clk"
         ]
       },
       "clk_wiz_locked": {
@@ -764,11 +764,11 @@
         "ports": [
           "rst_clk_wiz_100M/peripheral_aresetn",
           "kaem_gen_wrapper_0/ap_rst_n",
-          "sampler_top_0/ap_rst_n",
           "jtag_axi_0/aresetn",
           "axi_smc/aresetn",
           "axi_smc_1/aresetn",
-          "axis2uart_0/aresetn"
+          "axis2uart_0/aresetn",
+          "sampler_top_0/ap_rst_n"
         ]
       },
       "sampler_top_0_lut_address0": {
@@ -803,7 +803,7 @@
             "segments": {
               "SEG_sampler_top_0_Reg": {
                 "address_block": "/sampler_top_0/s_axi_ctrl/Reg",
-                "offset": "0x00010000",
+                "offset": "0x00000000",
                 "range": "64K",
                 "offset_base_param": "C_S_AXI_CTRL_BASEADDR",
                 "offset_high_param": "C_S_AXI_CTRL_HIGHADDR"

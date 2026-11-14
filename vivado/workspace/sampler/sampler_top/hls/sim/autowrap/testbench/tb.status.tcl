@@ -1,1 +1,0 @@
-set ::AESL_AUTOSIM::gTopFileName /home/prithvi/Work/kaem-hls/vivado/workspace/sampler/sampler_top/hls/./sim/autowrap/testbench/sampler.cpp_pre.cpp.tb.cpp

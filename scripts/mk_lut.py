@@ -113,6 +113,7 @@ def main() -> None:
                 f"constexpr int LUT_DEPTH = {Q * P * L};",
                 "constexpr int LUT_WIDTH = 8;",
                 "constexpr int AXIS_TDATA_BYTES = 4;",
+                f"constexpr float INPUT_SCALE = {scale:.8f}f;",  # for HLS dequant: z_f = z_i8 * INPUT_SCALE
                 "",
             ]
         ),

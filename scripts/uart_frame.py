@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 IMAGES = ROOT / "images"
 
 # Sampler (JTAG AXI)
-OFF_SAM = 0x10000
+OFF_SAM = 0x00000000  # from kaem_bd address editor in vivado
 SAM_CTRL = OFF_SAM + 0x00
 SAM_Q = OFF_SAM + 0x10
 SAM_U0 = OFF_SAM + 0x80
@@ -67,20 +67,21 @@ def start_sampler(q: int, u_q15: np.ndarray, wait_ms: int = 15000) -> None:
     if u_q15.shape != (P,):
         raise ValueError(f"u_q15 shape {u_q15.shape}, expected ({P},)")
 
+    # one u per 32-bit AXI word (HLS s_axilite layout)
     lines = [f"jw $ax {SAM_Q:#x} {q & 0xFFFF}"]
-    for n in range((P + 1) // 2):
-        lo = int(u_q15[2 * n])
-        hi = int(u_q15[2 * n + 1]) if 2 * n + 1 < P else 0
-        word = ((hi & 0xFFFF) << 16) | (lo & 0xFFFF)
-        lines.append(f"jw $ax {SAM_U0 + 4 * n:#x} {word:#x}")
+    for p in range(P):
+        lines.append(f"jw $ax {SAM_U0 + 4 * p:#x} {int(u_q15[p]) & 0xFFFF}")
 
     lines += [
         f"jw $ax {SAM_CTRL:#x} 0x1",
         f"after {wait_ms}",
         f'puts "CTRL [jr $ax {SAM_CTRL:#x}]"',
+        # verbose: readback of first few u's
+        f'puts "U0 [jr $ax {SAM_U0:#x}]"',
+        f'puts "U1 [jr $ax {SAM_U0 + 4:#x}]"',
     ]
-
-    jtag(lines)
+    out = jtag(lines)
+    print(out)
 
 
 def read_uart(port: str, baud: int, n: int, timeout: float) -> bytes:

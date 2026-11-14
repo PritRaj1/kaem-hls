@@ -36,7 +36,6 @@ cp -r /$PATH_TO/thermo-ebms/runs/kaem_celeb_a data/ # Edit
 
 ```bash
 uv run python main.py
-cp build/lut_assets/{lut_sizes.h,lut_i8.bin} vivado/hls/ # Move generated header to hls include path
 ```
 
 ## Vitis
@@ -44,7 +43,7 @@ cp build/lut_assets/{lut_sizes.h,lut_i8.bin} vivado/hls/ # Move generated header
 Run synthesis in Vitis HLS to produce the latent prior sampler:
 
 ```bash
-vitis -w vivado/workspace
+vitis-run --mode hls --tcl vivado/hls/sampler.tcl
 ```
 
 ## Vivado
@@ -54,7 +53,7 @@ vivado /tmp/finn_dev_$USER/vivado_stitch_proj_*/finn_vivado_stitch_proj.xpr
 ```
 
 1. Add constraints for [desired FPGA](https://www.amd.com/en/developer/resources/adaptive-socs-and-fpgas/package-pinout-files/kintex-7-package-device-pinout-files.html), using `Add Sources`. An example has been provided for my board (xc7k325tffg676-2) [here](./vivado/board.xdc).
-2. Add design files for the sampler with `Settings -> IP -> Repository` @ `vivado/workspace/sampler`. Additionally source the design files: [vivado/kaem_bd](./vivado/kaem_bd) and [vivado/rtl/axis2uart.v](vivado/rtl/axis2uart.v), using  `Add Sources`.
+2. Add design files for the sampler with `Settings -> IP -> Repository` @ [`sampler_hls`](./sampler_hls). Additionally source the design files: [vivado/kaem_bd](./vivado/kaem_bd) and [vivado/rtl/axis2uart.v](vivado/rtl/axis2uart.v), using  `Add Sources`.
 3. Open the `design_1` board design from kaem_bd. Also check the BRAM block, should init from `build/lut_assets/lut.coe` and match the [lut_sizes.h](./vivado/hls/lut_sizes.h) width/depth configs. Create HDL wrapper and set `design_1_wrapper` as top.
 4. `Run Synthesis`
 5. `Run Implementation`

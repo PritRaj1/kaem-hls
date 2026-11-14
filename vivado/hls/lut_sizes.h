@@ -6,3 +6,4 @@ constexpr int LUT_SIZE = 256;
 constexpr int LUT_DEPTH = 209920;
 constexpr int LUT_WIDTH = 8;
 constexpr int AXIS_TDATA_BYTES = 4;
+constexpr float INPUT_SCALE = 0.04686158f;

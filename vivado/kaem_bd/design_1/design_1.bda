@@ -190,8 +190,8 @@
             },
             "V3": {
                 "VT": "AC",
-                "BA": "0x00010000",
-                "HA": "0x0001FFFF",
+                "BA": "0x00000000",
+                "HA": "0x0000FFFF",
                 "BP": "C_S_AXI_CTRL_BASEADDR",
                 "HP": "C_S_AXI_CTRL_HIGHADDR",
                 "MA": "Data",
