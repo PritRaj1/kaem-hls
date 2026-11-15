@@ -2,7 +2,7 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.1 (lin64) Build 6140274 Wed May 21 22:58:25 MDT 2025
--- Date        : Fri Nov 13 22:37:53 2026
+-- Date        : Sat Nov 14 21:56:50 2026
 -- Host        : archangel running 64-bit Ubuntu 26.04.1 LTS
 -- Command     : write_vhdl -force -mode synth_stub
 --               /home/prithvi/Work/kaem-hls/vivado/kaem_bd/design_1/ip/design_1_sampler_top_0_1/design_1_sampler_top_0_1_stub.vhdl
@@ -49,7 +49,7 @@ entity design_1_sampler_top_0_1 is
   attribute CHECK_LICENSE_TYPE : string;
   attribute CHECK_LICENSE_TYPE of design_1_sampler_top_0_1 : entity is "design_1_sampler_top_0_1,sampler_top,{}";
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of design_1_sampler_top_0_1 : entity is "design_1_sampler_top_0_1,sampler_top,{x_ipProduct=Vivado 2025.1,x_ipVendor=xilinx.com,x_ipLibrary=hls,x_ipName=sampler_top,x_ipVersion=1.0,x_ipCoreRevision=2114872588,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_S_AXI_CTRL_ADDR_WIDTH=8,C_S_AXI_CTRL_DATA_WIDTH=32}";
+  attribute CORE_GENERATION_INFO of design_1_sampler_top_0_1 : entity is "design_1_sampler_top_0_1,sampler_top,{x_ipProduct=Vivado 2025.1,x_ipVendor=xilinx.com,x_ipLibrary=hls,x_ipName=sampler_top,x_ipVersion=1.0,x_ipCoreRevision=2114873993,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_S_AXI_CTRL_ADDR_WIDTH=8,C_S_AXI_CTRL_DATA_WIDTH=32}";
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of design_1_sampler_top_0_1 : entity is "yes";
   attribute IP_DEFINITION_SOURCE : string;

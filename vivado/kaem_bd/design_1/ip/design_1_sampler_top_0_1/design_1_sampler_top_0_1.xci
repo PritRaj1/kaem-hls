@@ -4,7 +4,7 @@
     "xci_name": "design_1_sampler_top_0_1",
     "cell_name": "sampler_top_0",
     "component_reference": "xilinx.com:hls:sampler_top:1.0",
-    "ip_revision": "2114872588",
+    "ip_revision": "2114873993",
     "gen_directory": ".",
     "parameters": {
       "component_parameters": {
@@ -34,7 +34,7 @@
       },
       "runtime_parameters": {
         "IPCONTEXT": [ { "value": "IP_Integrator" } ],
-        "IPREVISION": [ { "value": "2114872588" } ],
+        "IPREVISION": [ { "value": "2114873993" } ],
         "MANAGED": [ { "value": "TRUE" } ],
         "OUTPUTDIR": [ { "value": "." } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],

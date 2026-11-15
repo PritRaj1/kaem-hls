@@ -2,7 +2,7 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.1 (lin64) Build 6140274 Wed May 21 22:58:25 MDT 2025
-// Date        : Fri Nov 13 22:37:53 2026
+// Date        : Sat Nov 14 21:56:50 2026
 // Host        : archangel running 64-bit Ubuntu 26.04.1 LTS
 // Command     : write_verilog -force -mode synth_stub
 //               /home/prithvi/Work/kaem-hls/vivado/kaem_bd/design_1/ip/design_1_sampler_top_0_1/design_1_sampler_top_0_1_stub.v
@@ -14,7 +14,7 @@
 // This empty module with port declaration file causes synthesis tools to infer a black box for IP.
 // The synthesis directives are for Synopsys Synplify support to prevent IO buffer insertion.
 // Please paste the declaration into a Verilog source file or add the file as an additional source.
-(* CHECK_LICENSE_TYPE = "design_1_sampler_top_0_1,sampler_top,{}" *) (* CORE_GENERATION_INFO = "design_1_sampler_top_0_1,sampler_top,{x_ipProduct=Vivado 2025.1,x_ipVendor=xilinx.com,x_ipLibrary=hls,x_ipName=sampler_top,x_ipVersion=1.0,x_ipCoreRevision=2114872588,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_S_AXI_CTRL_ADDR_WIDTH=8,C_S_AXI_CTRL_DATA_WIDTH=32}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) 
+(* CHECK_LICENSE_TYPE = "design_1_sampler_top_0_1,sampler_top,{}" *) (* CORE_GENERATION_INFO = "design_1_sampler_top_0_1,sampler_top,{x_ipProduct=Vivado 2025.1,x_ipVendor=xilinx.com,x_ipLibrary=hls,x_ipName=sampler_top,x_ipVersion=1.0,x_ipCoreRevision=2114873993,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_S_AXI_CTRL_ADDR_WIDTH=8,C_S_AXI_CTRL_DATA_WIDTH=32}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) 
 (* IP_DEFINITION_SOURCE = "HLS" *) (* X_CORE_INFO = "sampler_top,Vivado 2025.1" *) (* hls_module = "yes" *) 
 module design_1_sampler_top_0_1(lut_ce0, s_axi_ctrl_ARADDR, 
   s_axi_ctrl_ARREADY, s_axi_ctrl_ARVALID, s_axi_ctrl_AWADDR, s_axi_ctrl_AWREADY, 

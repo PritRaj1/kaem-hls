@@ -2,7 +2,7 @@
 //Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2025.1 (lin64) Build 6140274 Wed May 21 22:58:25 MDT 2025
-//Date        : Fri Nov 13 22:37:18 2026
+//Date        : Sat Nov 14 23:37:01 2026
 //Host        : archangel running 64-bit Ubuntu 26.04.1 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -88,6 +88,7 @@ module design_1
   wire [31:0]sampler_top_0_m_axis_z_TDATA;
   wire sampler_top_0_m_axis_z_TVALID;
   wire txd;
+  wire [0:0]xlconstant_0_dout;
 
   design_1_axi_smc_0 axi_smc
        (.M00_AXI_araddr(axi_smc_M00_AXI_ARADDR),
@@ -107,14 +108,6 @@ module design_1
         .M00_AXI_wready(axi_smc_M00_AXI_WREADY),
         .M00_AXI_wstrb(axi_smc_M00_AXI_WSTRB),
         .M00_AXI_wvalid(axi_smc_M00_AXI_WVALID),
-        .M01_AXI_arready(1'b0),
-        .M01_AXI_awready(1'b0),
-        .M01_AXI_bresp({1'b0,1'b0}),
-        .M01_AXI_bvalid(1'b0),
-        .M01_AXI_rdata({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .M01_AXI_rresp({1'b0,1'b0}),
-        .M01_AXI_rvalid(1'b0),
-        .M01_AXI_wready(1'b0),
         .S00_AXI_araddr(jtag_axi_0_M_AXI_ARADDR),
         .S00_AXI_arburst(jtag_axi_0_M_AXI_ARBURST),
         .S00_AXI_arcache(jtag_axi_0_M_AXI_ARCACHE),
@@ -152,75 +145,6 @@ module design_1
         .S00_AXI_wready(jtag_axi_0_M_AXI_WREADY),
         .S00_AXI_wstrb(jtag_axi_0_M_AXI_WSTRB),
         .S00_AXI_wvalid(jtag_axi_0_M_AXI_WVALID),
-        .S01_AXI_araddr(1'b0),
-        .S01_AXI_arburst({1'b0,1'b1}),
-        .S01_AXI_arcache({1'b0,1'b0,1'b1,1'b1}),
-        .S01_AXI_arid(1'b0),
-        .S01_AXI_arlen(1'b0),
-        .S01_AXI_arlock(1'b0),
-        .S01_AXI_arprot({1'b0,1'b0,1'b0}),
-        .S01_AXI_arqos({1'b0,1'b0,1'b0,1'b0}),
-        .S01_AXI_arregion({1'b0,1'b0,1'b0,1'b0}),
-        .S01_AXI_arsize({1'b0,1'b1,1'b0}),
-        .S01_AXI_aruser(1'b0),
-        .S01_AXI_arvalid(1'b0),
-        .S01_AXI_awaddr(1'b0),
-        .S01_AXI_awburst({1'b0,1'b1}),
-        .S01_AXI_awcache({1'b0,1'b0,1'b1,1'b1}),
-        .S01_AXI_awid(1'b0),
-        .S01_AXI_awlen(1'b0),
-        .S01_AXI_awlock(1'b0),
-        .S01_AXI_awprot({1'b0,1'b0,1'b0}),
-        .S01_AXI_awqos({1'b0,1'b0,1'b0,1'b0}),
-        .S01_AXI_awregion({1'b0,1'b0,1'b0,1'b0}),
-        .S01_AXI_awsize({1'b0,1'b1,1'b0}),
-        .S01_AXI_awuser(1'b0),
-        .S01_AXI_awvalid(1'b0),
-        .S01_AXI_bready(1'b0),
-        .S01_AXI_rready(1'b0),
-        .S01_AXI_wdata(1'b0),
-        .S01_AXI_wid(1'b0),
-        .S01_AXI_wlast(1'b0),
-        .S01_AXI_wstrb(1'b1),
-        .S01_AXI_wuser(1'b0),
-        .S01_AXI_wvalid(1'b0),
-        .aclk(clk_wiz_clk_out1),
-        .aresetn(rst_clk_wiz_100M_peripheral_aresetn));
-  design_1_axi_smc_1_0 axi_smc_1
-       (.M00_AXI_arready(1'b0),
-        .M00_AXI_awready(1'b0),
-        .M00_AXI_bresp({1'b0,1'b0}),
-        .M00_AXI_bvalid(1'b0),
-        .M00_AXI_rdata({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .M00_AXI_rresp({1'b0,1'b0}),
-        .M00_AXI_rvalid(1'b0),
-        .M00_AXI_wready(1'b0),
-        .S00_AXI_araddr({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .S00_AXI_arburst({1'b0,1'b1}),
-        .S00_AXI_arcache({1'b0,1'b0,1'b1,1'b1}),
-        .S00_AXI_arid(1'b0),
-        .S00_AXI_arlen({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .S00_AXI_arlock(1'b0),
-        .S00_AXI_arprot({1'b0,1'b0,1'b0}),
-        .S00_AXI_arqos({1'b0,1'b0,1'b0,1'b0}),
-        .S00_AXI_arsize({1'b0,1'b1,1'b0}),
-        .S00_AXI_arvalid(1'b0),
-        .S00_AXI_awaddr({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .S00_AXI_awburst({1'b0,1'b1}),
-        .S00_AXI_awcache({1'b0,1'b0,1'b1,1'b1}),
-        .S00_AXI_awid(1'b0),
-        .S00_AXI_awlen({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .S00_AXI_awlock(1'b0),
-        .S00_AXI_awprot({1'b0,1'b0,1'b0}),
-        .S00_AXI_awqos({1'b0,1'b0,1'b0,1'b0}),
-        .S00_AXI_awsize({1'b0,1'b1,1'b0}),
-        .S00_AXI_awvalid(1'b0),
-        .S00_AXI_bready(1'b0),
-        .S00_AXI_rready(1'b0),
-        .S00_AXI_wdata({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .S00_AXI_wlast(1'b0),
-        .S00_AXI_wstrb({1'b1,1'b1,1'b1,1'b1}),
-        .S00_AXI_wvalid(1'b0),
         .aclk(clk_wiz_clk_out1),
         .aresetn(rst_clk_wiz_100M_peripheral_aresetn));
   design_1_axis2uart_0_3 axis2uart_0
@@ -291,7 +215,7 @@ module design_1
         .s_axis_0_tdata(sampler_top_0_m_axis_z_TDATA),
         .s_axis_0_tready(kaem_gen_wrapper_0_s_axis_0_tready),
         .s_axis_0_tvalid(sampler_top_0_m_axis_z_TVALID),
-        .sim_finish(1'b0));
+        .sim_finish(xlconstant_0_dout));
   design_1_rst_clk_wiz_100M_0 rst_clk_wiz_100M
        (.aux_reset_in(1'b1),
         .dcm_locked(clk_wiz_locked),
@@ -325,4 +249,6 @@ module design_1
         .s_axi_ctrl_WREADY(axi_smc_M00_AXI_WREADY),
         .s_axi_ctrl_WSTRB(axi_smc_M00_AXI_WSTRB),
         .s_axi_ctrl_WVALID(axi_smc_M00_AXI_WVALID));
+  design_1_xlconstant_0_0 xlconstant_0
+       (.dout(xlconstant_0_dout));
 endmodule

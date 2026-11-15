@@ -63,5 +63,5 @@ vivado /tmp/finn_dev_$USER/vivado_stitch_proj_*/finn_vivado_stitch_proj.xpr
 ## Test
 
 ```bash
-uv run python scripts/uart_frame.py --port /dev/ttyUSB1 # update with open serial port
+uv run python scripts/uart_frame.py --port /dev/ttyUSB0 # update with open serial port
 ```

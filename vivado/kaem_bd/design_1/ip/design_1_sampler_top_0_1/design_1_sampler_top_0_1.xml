@@ -1120,7 +1120,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:f792e5e5</spirit:value>
+            <spirit:value>9:21092c6b</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1134,11 +1134,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Nov 14 06:37:53 UTC 2026</spirit:value>
+            <spirit:value>Sun Nov 15 05:56:50 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:f792e5e5</spirit:value>
+            <spirit:value>9:21092c6b</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1152,11 +1152,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Nov 14 06:37:21 UTC 2026</spirit:value>
+            <spirit:value>Sun Nov 15 05:56:17 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:f792e5e5</spirit:value>
+            <spirit:value>9:21092c6b</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1167,7 +1167,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:f792e5e5</spirit:value>
+            <spirit:value>9:21092c6b</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1201,11 +1201,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Nov 14 06:37:21 UTC 2026</spirit:value>
+            <spirit:value>Sun Nov 15 05:56:17 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:757a74d7</spirit:value>
+            <spirit:value>9:a3e1bd59</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1221,11 +1221,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Nov 14 06:37:21 UTC 2026</spirit:value>
+            <spirit:value>Sun Nov 15 05:56:17 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:757a74d7</spirit:value>
+            <spirit:value>9:a3e1bd59</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1259,11 +1259,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Nov 14 06:37:21 UTC 2026</spirit:value>
+            <spirit:value>Sun Nov 15 05:56:17 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:f792e5e5</spirit:value>
+            <spirit:value>9:21092c6b</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1279,11 +1279,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Nov 14 06:37:21 UTC 2026</spirit:value>
+            <spirit:value>Sun Nov 15 05:56:17 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:f792e5e5</spirit:value>
+            <spirit:value>9:21092c6b</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1917,52 +1917,52 @@
         <spirit:userFileType>xci</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_ctrl_s_axi.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_ctrl_s_axi.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_flow_control_loop_pipe_sequential_init.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_flow_control_loop_pipe_sequential_init.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_fmul_32ns_32ns_32_3_max_dsp_1.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_fmul_32ns_32ns_32_3_max_dsp_1.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_hls_deadlock_idx0_monitor.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_hls_deadlock_idx0_monitor.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_hls_deadlock_kernel_monitor_top.vh</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_hls_deadlock_kernel_monitor_top.vh</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_mul_5ns_7ns_10_1_1.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_mul_5ns_7ns_10_1_1.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_regslice_both.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_regslice_both.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_sampler_top_Pipeline_VITIS_LOOP_30_1.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_sampler_top_Pipeline_VITIS_LOOP_30_1.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_sitofp_32s_32_4_no_dsp_1.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_sitofp_32s_32_4_no_dsp_1.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -2081,43 +2081,43 @@
         <spirit:userFileType>xci</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_ctrl_s_axi.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_ctrl_s_axi.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_flow_control_loop_pipe_sequential_init.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_flow_control_loop_pipe_sequential_init.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_fmul_32ns_32ns_32_3_max_dsp_1.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_fmul_32ns_32ns_32_3_max_dsp_1.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_hls_deadlock_idx0_monitor.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_hls_deadlock_idx0_monitor.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_hls_deadlock_kernel_monitor_top.vh</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_hls_deadlock_kernel_monitor_top.vh</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_mul_5ns_7ns_10_1_1.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_mul_5ns_7ns_10_1_1.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_regslice_both.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_regslice_both.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_sampler_top_Pipeline_VITIS_LOOP_30_1.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_sampler_top_Pipeline_VITIS_LOOP_30_1.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top_sitofp_32s_32_4_no_dsp_1.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top_sitofp_32s_32_4_no_dsp_1.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/59a9/hdl/verilog/sampler_top.v</spirit:name>
+        <spirit:name>../../ipshared/d1ce/hdl/verilog/sampler_top.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
@@ -2196,7 +2196,7 @@
     <xilinx:coreExtensions>
       <xilinx:displayName>Sampler_top</xilinx:displayName>
       <xilinx:definitionSource>HLS</xilinx:definitionSource>
-      <xilinx:coreRevision>2114872588</xilinx:coreRevision>
+      <xilinx:coreRevision>2114873993</xilinx:coreRevision>
       <xilinx:sdxKernelAttributes>
         <xilinx:sdx_kernel>true</xilinx:sdx_kernel>
         <xilinx:sdx_kernel_type>hls</xilinx:sdx_kernel_type>

@@ -48,11 +48,11 @@
 
 
 // IP VLNV: xilinx.com:hls:sampler_top:1.0
-// IP Revision: 2114872588
+// IP Revision: 2114873993
 
 (* X_CORE_INFO = "sampler_top,Vivado 2025.1" *)
 (* CHECK_LICENSE_TYPE = "design_1_sampler_top_0_1,sampler_top,{}" *)
-(* CORE_GENERATION_INFO = "design_1_sampler_top_0_1,sampler_top,{x_ipProduct=Vivado 2025.1,x_ipVendor=xilinx.com,x_ipLibrary=hls,x_ipName=sampler_top,x_ipVersion=1.0,x_ipCoreRevision=2114872588,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_S_AXI_CTRL_ADDR_WIDTH=8,C_S_AXI_CTRL_DATA_WIDTH=32}" *)
+(* CORE_GENERATION_INFO = "design_1_sampler_top_0_1,sampler_top,{x_ipProduct=Vivado 2025.1,x_ipVendor=xilinx.com,x_ipLibrary=hls,x_ipName=sampler_top,x_ipVersion=1.0,x_ipCoreRevision=2114873993,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_S_AXI_CTRL_ADDR_WIDTH=8,C_S_AXI_CTRL_DATA_WIDTH=32}" *)
 (* IP_DEFINITION_SOURCE = "HLS" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_sampler_top_0_1 (

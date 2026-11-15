@@ -26,7 +26,8 @@ P = 41
 WIDTH = 64
 HEIGHT = 64
 CHANNELS = 3
-N_BYTES = WIDTH * HEIGHT * CHANNELS  # 12288
+N_FLOATS = WIDTH * HEIGHT * CHANNELS  # 12288 AXIS beats
+N_BYTES = N_FLOATS * 4  # float32 over UART, little endian
 
 
 def jtag(lines: list[str]) -> str:
@@ -67,21 +68,47 @@ def start_sampler(q: int, u_q15: np.ndarray, wait_ms: int = 15000) -> None:
     if u_q15.shape != (P,):
         raise ValueError(f"u_q15 shape {u_q15.shape}, expected ({P},)")
 
-    # one u per 32-bit AXI word (HLS s_axilite layout)
+    # Write scalar q
     lines = [f"jw $ax {SAM_Q:#x} {q & 0xFFFF}"]
-    for p in range(P):
-        lines.append(f"jw $ax {SAM_U0 + 4 * p:#x} {int(u_q15[p]) & 0xFFFF}")
+
+    # Each Q15 val to 32-bit word (stride +4 bytes per element)
+    for n in range(P):
+        val = int(u_q15[n]) & 0xFFFF
+        lines.append(f"jw $ax {SAM_U0 + 4 * n:#x} {val:#x}")
 
     lines += [
-        f"jw $ax {SAM_CTRL:#x} 0x1",
+        f"jw $ax {SAM_CTRL:#x} 0x1",  # ap_start
         f"after {wait_ms}",
-        f'puts "CTRL [jr $ax {SAM_CTRL:#x}]"',
-        # verbose: readback of first few u's
+        f'puts "CTRL_VAL [jr $ax {SAM_CTRL:#x}]"',
         f'puts "U0 [jr $ax {SAM_U0:#x}]"',
-        f'puts "U1 [jr $ax {SAM_U0 + 4:#x}]"',
     ]
+
     out = jtag(lines)
     print(out)
+
+    # Check control reg
+    for line in out.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("#"):
+            continue
+
+        if "CTRL_VAL" in stripped:
+            parts = stripped.split()
+            val_hex = parts[-1]
+            ctrl_val = int(val_hex, 16)
+
+            # Bit 1 is ap_done, bit 2 is ap_idle
+            ap_done = (ctrl_val >> 1) & 1
+            ap_idle = (ctrl_val >> 2) & 1
+
+            print(f"Control Register: 0x{ctrl_val:08x} (ap_done={ap_done}, ap_idle={ap_idle})")
+
+            if not ap_done and not ap_idle:
+                raise RuntimeError(
+                    f"Sampler finished with invalid control status: 0x{ctrl_val:08x}. "
+                    "Accelerator hung or timed out."
+                )
+            break
 
 
 def read_uart(port: str, baud: int, n: int, timeout: float) -> bytes:
@@ -94,11 +121,23 @@ def save_frame(data: bytes, out_png: Path) -> np.ndarray:
     if len(data) != N_BYTES:
         raise RuntimeError(f"expected {N_BYTES} bytes, got {len(data)}")
 
-    img = np.frombuffer(data, dtype=np.uint8).reshape(HEIGHT, WIDTH, CHANNELS)
-    print("shape", img.shape, "min/max", int(img.min()), int(img.max()))
-    print("mean", float(img.mean()), "unique", len(np.unique(img)))
+    # Little endian float32 from FPGA, same range as Brevitas (~[-1, 1])
+    x = np.frombuffer(data, dtype="<f4").astype(np.float32)
+    print(
+        "float",
+        x.shape,
+        "min/max",
+        float(x.min()),
+        float(x.max()),
+        "mean",
+        float(x.mean()),
+    )
+
+    img = x.reshape(HEIGHT, WIDTH, CHANNELS)
+    img = np.clip((img + 1.0) / 2.0, 0.0, 1.0)
+
+    print("shape", img.shape)
     out_png.parent.mkdir(parents=True, exist_ok=True)
-    (ROOT / "frame.bin").write_bytes(data)
 
     plt.figure(figsize=(7, 7))
     plt.imshow(img)
@@ -123,12 +162,15 @@ def main() -> None:
         default=None,
         help="If set, use this constant u in [0,1] for all dims (debug)",
     )
-    p.add_argument("--timeout", type=float, default=60.0)
+    p.add_argument("--timeout", type=float, default=90.0)
     p.add_argument("--out", type=Path, default=IMAGES / "uart_frame.png")
     args = p.parse_args()
 
-    # Uniform noise in for ITS
-    rng = np.random.default_rng(args.seed)
+    rng = (
+        np.default_rng(args.seed)
+        if hasattr(np, "default_rng")
+        else np.random.default_rng(args.seed)
+    )
     if args.u_const is not None:
         u = np.full(P, float(args.u_const), dtype=np.float64)
     else:
@@ -136,7 +178,6 @@ def main() -> None:
     u_q15 = float_to_q15(u)
     print("u_q15[:8]", u_q15[:8].tolist())
 
-    # Start background thread to read UART while FPGA running
     with ThreadPoolExecutor(max_workers=1) as pool:
         fut = pool.submit(read_uart, args.port, args.baud, N_BYTES, args.timeout)
         print(f"listening on {args.port} @ {args.baud} for {N_BYTES} bytes...")

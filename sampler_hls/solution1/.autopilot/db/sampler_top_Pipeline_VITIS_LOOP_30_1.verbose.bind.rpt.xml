@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vitis HLS Report for 'sampler_top_Pipeline_VITIS_LOOP_30_1'" level="0">
-<item name = "Date">Fri Nov 13 22:28:29 2026
+<item name = "Date">Sat Nov 14 21:53:45 2026
 </item>
 <item name = "Version">2025.1 (Build 6135595 on May 21 2025)</item>
 <item name = "Project">sampler_hls</item>

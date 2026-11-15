@@ -128,6 +128,8 @@
 				"/kaem_gen_wrapper_0/m_axis_0": {
 					"interface": "xilinx.com:interface:axis:1.0",
 					"ports": {
+						"ACLK": { "actual": "ap_clk"},
+						"ARESETN": { "actual": "ap_rst_n"},
 						"TDATA": { "actual": "m_axis_0_tdata[31:0]"},
 						"TREADY": { "actual": "m_axis_0_tready"},
 						"TVALID": { "actual": "m_axis_0_tvalid"}
@@ -136,6 +138,8 @@
 				"/kaem_gen_wrapper_0/s_axis_0": {
 					"interface": "xilinx.com:interface:axis:1.0",
 					"ports": {
+						"ACLK": { "actual": "ap_clk"},
+						"ARESETN": { "actual": "ap_rst_n"},
 						"TDATA": { "actual": "s_axis_0_tdata[31:0]"},
 						"TREADY": { "actual": "s_axis_0_tready"},
 						"TVALID": { "actual": "s_axis_0_tvalid"}
